@@ -1,20 +1,20 @@
 //
-//  ViewController.swift
+//  ContactDetailScreen.swift
 //  ContactApplication
 //
 //  Created by Ashwini shalke on 22/09/19.
 //  Copyright © 2019 Ashwini Shalke. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-class ViewController: UITableViewController {
-
+class ContactDetailScreen: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.red
+        
+        view.backgroundColor = UIColor.green
     }
-
-
+    
 }
-
