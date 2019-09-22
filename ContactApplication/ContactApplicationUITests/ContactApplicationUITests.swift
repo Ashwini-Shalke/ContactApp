@@ -1,14 +1,14 @@
 //
-//  ContactAppUITests.swift
-//  ContactAppUITests
+//  ContactApplicationUITests.swift
+//  ContactApplicationUITests
 //
-//  Created by Ashwini shalke on 17/09/19.
+//  Created by Ashwini shalke on 22/09/19.
 //  Copyright © 2019 Ashwini Shalke. All rights reserved.
 //
 
 import XCTest
 
-class ContactAppUITests: XCTestCase {
+class ContactApplicationUITests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
