@@ -17,6 +17,9 @@ class HomeScreen: UITableViewController {
         view.backgroundColor = UIColor.gray
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         self.navigationItem.title = "Contact"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action:#selector(addTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Groups", style: .plain, target: self, action: #selector(addTapped))
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -36,6 +39,11 @@ class HomeScreen: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let CDScreen = ContactDetailScreen()
         navigationController?.pushViewController(CDScreen, animated: true)
+    }
+    
+    @objc func addTapped()
+    {
+        
     }
 
 
