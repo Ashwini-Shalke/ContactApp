@@ -16,6 +16,7 @@
 		3350132F2337A62D00732D90 /* ContactApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3350132E2337A62D00732D90 /* ContactApplicationTests.swift */; };
 		3350133A2337A62D00732D90 /* ContactApplicationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335013392337A62D00732D90 /* ContactApplicationUITests.swift */; };
 		335013482337A74D00732D90 /* ContactDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335013472337A74D00732D90 /* ContactDetailScreen.swift */; };
+		336A4CA72344440E00A25696 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336A4CA62344440E00A25696 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		335013392337A62D00732D90 /* ContactApplicationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactApplicationUITests.swift; sourceTree = "<group>"; };
 		3350133B2337A62D00732D90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		335013472337A74D00732D90 /* ContactDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailScreen.swift; sourceTree = "<group>"; };
+		336A4CA62344440E00A25696 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				335013222337A62D00732D90 /* LaunchScreen.storyboard */,
 				335013252337A62D00732D90 /* Info.plist */,
 				3350131D2337A62900732D90 /* ContactApplication.xcdatamodeld */,
+				336A4CA62344440E00A25696 /* Extensions.swift */,
 			);
 			path = ContactApplication;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				336A4CA72344440E00A25696 /* Extensions.swift in Sources */,
 				335013192337A62900732D90 /* HomeScreen.swift in Sources */,
 				3350131F2337A62900732D90 /* ContactApplication.xcdatamodeld in Sources */,
 				335013172337A62900732D90 /* AppDelegate.swift in Sources */,

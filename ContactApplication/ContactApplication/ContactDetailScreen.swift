@@ -10,15 +10,13 @@ import Foundation
 import UIKit
 
 class ContactDetailScreen: UIViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = UIColor.green
-        
+        view.backgroundColor = UIColor.white
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(addTapped))
-        
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
         view.addSubview(topViewContainer)
+        //topViewContainer.setBackgroundGradientColor(colorOne: UIColor.green, colorTwo: UIColor.blue  )
         controlButtonLayout()
         autolayout()
         
@@ -27,7 +25,8 @@ class ContactDetailScreen: UIViewController {
     let topViewContainer : UIView = {
         let topView = UIView()
         topView.translatesAutoresizingMaskIntoConstraints = false
-        topView.backgroundColor = UIColor.gray
+        topView.frame = CGRect(x: 0, y: 0, width: 375.0, height: 334.0)
+        topView.setBackgroundGradientColor(colorOne: UIColor.lightGreen, colorTwo: UIColor.white)
         return topView
     }()
     
@@ -100,6 +99,8 @@ class ContactDetailScreen: UIViewController {
             topViewContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             topViewContainer.heightAnchor.constraint(equalToConstant: 335)])
         
+        
+        
         topViewContainer.addSubview(placeHolderImageView)
         
         // layout for profileViewContainer
@@ -109,15 +110,11 @@ class ContactDetailScreen: UIViewController {
             placeHolderImageView.heightAnchor.constraint(equalToConstant: 120),
             placeHolderImageView.widthAnchor.constraint(equalToConstant: 120)
             ])
+        
+        
+        
     }
 }
 
-
-extension UIImageView {
-    
-    func round() {
-        self.layer.cornerRadius = self.frame.size.width / 2
-    }
-}
 
 
