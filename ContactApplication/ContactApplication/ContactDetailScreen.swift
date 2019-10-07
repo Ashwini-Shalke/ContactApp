@@ -15,9 +15,6 @@ class ContactDetailScreen: UIViewController {
         view.backgroundColor = UIColor.white
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(addTapped))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
-        view.addSubview(topViewContainer)
-        //topViewContainer.setBackgroundGradientColor(colorOne: UIColor.green, colorTwo: UIColor.blue  )
-        controlButtonLayout()
         autolayout()
         
     }
@@ -25,20 +22,16 @@ class ContactDetailScreen: UIViewController {
     let topViewContainer : UIView = {
         let topView = UIView()
         topView.translatesAutoresizingMaskIntoConstraints = false
-        topView.frame = CGRect(x: 0, y: 0, width: 375.0, height: 334.0)
-        topView.setBackgroundGradientColor(colorOne: UIColor.lightGreen, colorTwo: UIColor.white)
+        topView.backgroundColor = UIColor.lightGray
+   // topView.setBackgroundGradientColor(colorOne: UIColor.lightGreen, colorTwo: UIColor.white)
         return topView
     }()
     
     let placeHolderImageView : UIImageView = {
         let image = UIImage(named: "placeholder_photo")
-        let placeholder = UIImageView(frame: CGRect(x: 0, y: 0, width: 120, height: 120))//DO not forcefully unwrap
+        let placeholder = UIImageView()
         placeholder.image = image
         placeholder.clipsToBounds = true
-        placeholder.layer.borderWidth = 3
-        placeholder.layer.borderColor = UIColor.white.cgColor
-        placeholder.backgroundColor = UIColor.red
-        
         placeholder.round()
         placeholder.translatesAutoresizingMaskIntoConstraints = false
         return placeholder
@@ -56,6 +49,13 @@ class ContactDetailScreen: UIViewController {
         return msgBtn
     }()
     
+    let callButton: UIButton = {
+        let callImage = UIImage(named:"call_button") as UIImage?
+        let callBtn = UIButton(type: .custom)
+        callBtn.setImage(callImage, for: .normal)
+        return callBtn
+    }()
+    
     let emailButton: UIButton = {
         let emailImage = UIImage(named:"email_button") as UIImage?
         let emailBtn = UIButton(type: .custom)
@@ -63,12 +63,6 @@ class ContactDetailScreen: UIViewController {
         return emailBtn
     }()
     
-    let callButton: UIButton = {
-        let callImage = UIImage(named:"call_button") as UIImage?
-        let callBtn = UIButton(type: .custom)
-        callBtn.setImage(callImage, for: .normal)
-        return callBtn
-    }()
     
     let homeFavouriteButton: UIButton = {
         let homeFavouriteImage = UIImage(named:"favourite_button") as UIImage?
@@ -77,41 +71,75 @@ class ContactDetailScreen: UIViewController {
         return homeFavouriteBtn
     }()
     
-    
-    func controlButtonLayout()
-    {
-        let stackView = UIStackView(arrangedSubviews: [messageButton,callButton,emailButton,homeFavouriteButton])
+    let phonenumberContainer: UIView = {
+        let phonenumberView = UIView()
+        phonenumberView.backgroundColor = UIColor.blue
+        phonenumberView.translatesAutoresizingMaskIntoConstraints = false
         
-        stackView.spacing = 39
-        topViewContainer.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.leftAnchor.constraint(equalTo: topViewContainer.leftAnchor, constant: 45).isActive = true
-        stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 260).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: topViewContainer.bottomAnchor, constant: -30).isActive = true
-        
-    }
+        return phonenumberView
+    }()
     
-    func autolayout()
-    {
-        // layout for topViewContainer
+    let phonenumberLabel: UILabel = {
+        let phoneLabel = UILabel()
+        phoneLabel.text = "mobile"
+        phoneLabel.font = UIFont(name:"", size: <#T##CGFloat#>)
+        phoneLabel.translatesAutoresizingMaskIntoConstraints = false
+        return phoneLabel
+    }()
+    
+  
+    
+    
+    func autolayout() {
+        view.addSubview(topViewContainer)
+//        layout for topViewContainer
         NSLayoutConstraint.activate([
-            topViewContainer.widthAnchor.constraint(equalTo: view.widthAnchor),
+            topViewContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
+            topViewContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
             topViewContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            topViewContainer.heightAnchor.constraint(equalToConstant: 335)])
-        
+            topViewContainer.heightAnchor.constraint(equalToConstant: 335)
+            ])
         
         
         topViewContainer.addSubview(placeHolderImageView)
-        
-        // layout for profileViewContainer
+//         layout for profileViewContainer
         NSLayoutConstraint.activate([
             placeHolderImageView.topAnchor.constraint(equalTo: topViewContainer.topAnchor, constant: 60),
             placeHolderImageView.centerXAnchor.constraint(equalTo: topViewContainer.centerXAnchor),
             placeHolderImageView.heightAnchor.constraint(equalToConstant: 120),
             placeHolderImageView.widthAnchor.constraint(equalToConstant: 120)
             ])
+
+//        layout for bottom contol buttons
+        controlButtonLayout()
         
+        view.addSubview(phonenumberContainer)
+//        layout for phonenumbercontainer
+        NSLayoutConstraint.activate([
+            phonenumberContainer.topAnchor.constraint(equalTo: topViewContainer.bottomAnchor),
+            phonenumberContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
+            phonenumberContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
+            phonenumberContainer.heightAnchor.constraint(equalToConstant: 56)
+            ])
         
+        phonenumberContainer.addSubview(phonenumberLabel)
+//        layout for phonenumberLabel
+        NSLayoutConstraint.activate([
+            phonenumberLabel.topAnchor.constraint(equalTo: phonenumberContainer.topAnchor, constant: 18),
+            phonenumberLabel.leftAnchor.constraint(equalTo: phonenumberContainer.leftAnchor, constant: 22),
+            phonenumberLabel.heightAnchor.constraint(equalToConstant: 19)
+            ])
+
+    }
+    
+    func controlButtonLayout() {
+        let stackView = UIStackView(arrangedSubviews: [messageButton,callButton,emailButton,homeFavouriteButton])
+        stackView.spacing = 39
+        topViewContainer.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.leftAnchor.constraint(equalTo: topViewContainer.leftAnchor, constant: 44).isActive = true
+        stackView.rightAnchor.constraint(equalTo: topViewContainer.rightAnchor, constant: 44)
+        stackView.topAnchor.constraint(equalTo: placeHolderImageView.bottomAnchor, constant: 56).isActive = true
         
     }
 }
