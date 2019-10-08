@@ -15,6 +15,9 @@ class ContactDetailScreen: UIViewController {
         view.backgroundColor = UIColor.white
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(addTapped))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
+        navigationController?.navigationBar.tintColor = UIColor.lightGreen
+        navigationController?.navigationBar.barTintColor = UIColor.customBlue
+        navigationController?.navigationBar.shadowImage = UIImage()
         autolayout()
         
     }
@@ -22,7 +25,7 @@ class ContactDetailScreen: UIViewController {
     let topViewContainer : UIView = {
         let topView = UIView()
         topView.translatesAutoresizingMaskIntoConstraints = false
-        topView.backgroundColor = UIColor.lightGray
+        topView.backgroundColor = UIColor.customBlue
         // topView.setBackgroundGradientColor(colorOne: UIColor.lightGreen, colorTwo: UIColor.white)
         return topView
     }()
@@ -37,6 +40,18 @@ class ContactDetailScreen: UIViewController {
         return placeholder
     }()
     
+    let placeHolderLabel: UILabel = {
+        let placeholder = UILabel()
+        placeholder.text = "Ashwini Shalke"
+        placeholder.adjustsFontSizeToFitWidth = true
+        placeholder.textAlignment = NSTextAlignment.left
+        placeholder.translatesAutoresizingMaskIntoConstraints = false
+        placeholder.font = UIFont(name: "SFUIText-Bold", size: 19)
+        //placeholder.font = UIFont.boldSystemFont(ofSize: 19)
+        return placeholder
+    }()
+    
+    
     @objc func addTapped(){
         
     }
@@ -47,6 +62,13 @@ class ContactDetailScreen: UIViewController {
         let msgBtn = UIButton.init(type: .custom)
         msgBtn.setImage(messageImage, for: .normal)
         return msgBtn
+    }()
+    
+    let messagLabel: UILabel = {
+        let msgLabel = UILabel()
+        msgLabel.text = "message"
+        msgLabel.font = UIFont(name: "SFUIText-Regular", size: 12)
+        return msgLabel
     }()
     
     let callButton: UIButton = {
@@ -63,7 +85,6 @@ class ContactDetailScreen: UIViewController {
         return emailBtn
     }()
     
-    
     let homeFavouriteButton: UIButton = {
         let homeFavouriteImage = UIImage(named:"favourite_button") as UIImage?
         let homeFavouriteBtn = UIButton(type: .custom)
@@ -73,6 +94,7 @@ class ContactDetailScreen: UIViewController {
     
     let phonenumberContainer: UIView = {
         let phonenumberView = UIView()
+        //phonenumberView.backgroundColor = UIColor.lightGray
         phonenumberView.translatesAutoresizingMaskIntoConstraints = false
         return phonenumberView
     }()
@@ -89,7 +111,7 @@ class ContactDetailScreen: UIViewController {
     let phonenumberText: UITextField = {
         let phoneText = UITextField ()
         // phoneText.backgroundColor = UIColor.green
-        phoneText.text = "919075721798"
+        phoneText.text = "919075721798919075721798919075721798919075721798919075721798"
         phoneText.font = UIFont(name: "SFUIText-Regular", size: 16)
         phoneText.isUserInteractionEnabled = false
         phoneText.translatesAutoresizingMaskIntoConstraints = false
@@ -97,10 +119,11 @@ class ContactDetailScreen: UIViewController {
     }()
     
     let emailContainer: UIView = {
-        let emaillView = UIView()
-        // emaillView.backgroundColor = UIColor.red
-        emaillView.translatesAutoresizingMaskIntoConstraints = false
-        return emaillView
+        let emailView = UIView()
+        emailView.layer.borderWidth = 0.4
+        emailView.layer.borderColor = UIColor.gray.cgColor
+        emailView.translatesAutoresizingMaskIntoConstraints = false
+        return emailView
     }()
     
     let emailLabel: UILabel = {
@@ -114,16 +137,12 @@ class ContactDetailScreen: UIViewController {
     
     let emailText: UITextField = {
         let email = UITextField ()
-        //email.backgroundColor = UIColor.blue
-        email.text = "ashwinishalke050@gmail.com"
+        email.text = "ashwinishalke050@gmail.comashwinishalke050@gmail.comashwinishalke050@gmail.com"
         email.font = UIFont(name: "SFUIText-Regular", size: 16)
         email.isUserInteractionEnabled = false
         email.translatesAutoresizingMaskIntoConstraints = false
         return email
-        
     }()
-    
-    
     
     
     func autolayout() {
@@ -133,24 +152,34 @@ class ContactDetailScreen: UIViewController {
             topViewContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
             topViewContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
             topViewContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            topViewContainer.heightAnchor.constraint(equalToConstant: 335)
+            topViewContainer.heightAnchor.constraint(equalToConstant: 269)
             ])
         
         
         topViewContainer.addSubview(placeHolderImageView)
-        //         layout for profileViewContainer
+//        layout for profileViewContainer
         NSLayoutConstraint.activate([
-            placeHolderImageView.topAnchor.constraint(equalTo: topViewContainer.topAnchor, constant: 60),
+            placeHolderImageView.topAnchor.constraint(equalTo: topViewContainer.topAnchor, constant: 19),
             placeHolderImageView.centerXAnchor.constraint(equalTo: topViewContainer.centerXAnchor),
             placeHolderImageView.heightAnchor.constraint(equalToConstant: 120),
             placeHolderImageView.widthAnchor.constraint(equalToConstant: 120)
             ])
         
-        //        layout for bottom contol buttons
+        topViewContainer.addSubview(placeHolderLabel)
+//        layout for placeHolderLabel
+        NSLayoutConstraint.activate([
+            placeHolderLabel.topAnchor.constraint(equalTo: placeHolderImageView.bottomAnchor, constant: 8),
+            placeHolderLabel.centerXAnchor.constraint(equalTo: topViewContainer.centerXAnchor),
+            placeHolderLabel.heightAnchor.constraint(equalToConstant: 24)
+            ])
+        
+//        layout for bottom contol buttons
         controlButtonLayout()
         
+       
+        
         view.addSubview(phonenumberContainer)
-        //        layout for phonenumbercontainer
+//        layout for phonenumbercontainer
         NSLayoutConstraint.activate([
             phonenumberContainer.topAnchor.constraint(equalTo: topViewContainer.bottomAnchor),
             phonenumberContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -159,10 +188,11 @@ class ContactDetailScreen: UIViewController {
             ])
         
         phonenumberContainer.addSubview(phonenumberLabel)
-        //        layout for phonenumberLabel
+//        layout for phonenumberLabel
         NSLayoutConstraint.activate([
             phonenumberLabel.topAnchor.constraint(equalTo: phonenumberContainer.topAnchor, constant: 18),
             phonenumberLabel.leftAnchor.constraint(equalTo: phonenumberContainer.leftAnchor, constant: 22),
+            phonenumberLabel.rightAnchor.constraint(equalTo: phonenumberContainer.rightAnchor, constant: 308),
             phonenumberLabel.heightAnchor.constraint(equalToConstant: 19)
             ])
         
@@ -171,8 +201,8 @@ class ContactDetailScreen: UIViewController {
         NSLayoutConstraint.activate([
             phonenumberText.topAnchor.constraint(equalTo: phonenumberContainer.topAnchor, constant: 18),
             phonenumberText.heightAnchor.constraint(equalToConstant: 19),
-            // phonenumberText.widthAnchor.constraint(equalToConstant: 130),
-            phonenumberText.leftAnchor.constraint(equalTo: phonenumberLabel.rightAnchor, constant: 35),
+            phonenumberText.leftAnchor.constraint(equalTo: phonenumberContainer.leftAnchor, constant: 102),
+            phonenumberText.rightAnchor.constraint(equalTo: phonenumberContainer.rightAnchor, constant: -10)
             ])
         
         view.addSubview(emailContainer)
@@ -183,22 +213,23 @@ class ContactDetailScreen: UIViewController {
             emailContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
             emailContainer.heightAnchor.constraint(equalToConstant: 56)])
         
-        
+     
         emailContainer.addSubview(emailLabel)
         //        layout for emailLabel
         NSLayoutConstraint.activate([
             emailLabel.topAnchor.constraint(equalTo: emailContainer.topAnchor, constant: 18),
             emailLabel.leftAnchor.constraint(equalTo: emailContainer.leftAnchor, constant: 22),
+            emailLabel.rightAnchor.constraint(equalTo: emailContainer.rightAnchor, constant: 307),
             emailLabel.heightAnchor.constraint(equalToConstant: 19)
             ])
         
         emailContainer.addSubview(emailText)
-        //        layout for emailText
+        //         layout for emailText
         NSLayoutConstraint.activate([
             emailText.topAnchor.constraint(equalTo: emailContainer.topAnchor, constant: 18),
             emailText.heightAnchor.constraint(equalToConstant: 19),
-            //emailText.widthAnchor.constraint(equalToConstant: 161),
-            emailText.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 32)
+            emailText.leftAnchor.constraint(equalTo: emailContainer.leftAnchor, constant: 102),
+            emailText.rightAnchor.constraint(equalTo: emailContainer.rightAnchor, constant: -10)
             ])
         
     }
@@ -206,12 +237,10 @@ class ContactDetailScreen: UIViewController {
     func controlButtonLayout() {
         let stackView = UIStackView(arrangedSubviews: [messageButton,callButton,emailButton,homeFavouriteButton])
         stackView.distribution = .fillEqually
-        
-        //stackView.spacing = 39
         topViewContainer.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: placeHolderImageView.bottomAnchor, constant: 56),
+            stackView.topAnchor.constraint(equalTo: placeHolderLabel.bottomAnchor, constant: 24),
             stackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 45),
             stackView.bottomAnchor.constraint(equalTo: topViewContainer.bottomAnchor, constant: -30),
             stackView.centerXAnchor.constraint(equalTo: topViewContainer.centerXAnchor)
