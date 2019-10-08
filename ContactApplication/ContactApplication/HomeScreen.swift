@@ -17,8 +17,11 @@ class HomeScreen: UITableViewController {
         view.backgroundColor = UIColor.gray
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         self.navigationItem.title = "Contact"
+        navigationController?.navigationBar.tintColor = UIColor.lightGreen
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action:#selector(addTapped))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Groups", style: .plain, target: self, action: #selector(addTapped))
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.lightGreen
         
     }
     

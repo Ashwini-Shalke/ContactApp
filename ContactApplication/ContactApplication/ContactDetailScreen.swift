@@ -88,7 +88,7 @@ class ContactDetailScreen: UIViewController {
     
     let phonenumberText: UITextField = {
         let phoneText = UITextField ()
-       // phoneText.backgroundColor = UIColor.green
+        // phoneText.backgroundColor = UIColor.green
         phoneText.text = "919075721798"
         phoneText.font = UIFont(name: "SFUIText-Regular", size: 16)
         phoneText.isUserInteractionEnabled = false
@@ -98,7 +98,7 @@ class ContactDetailScreen: UIViewController {
     
     let emailContainer: UIView = {
         let emaillView = UIView()
-       // emaillView.backgroundColor = UIColor.red
+        // emaillView.backgroundColor = UIColor.red
         emaillView.translatesAutoresizingMaskIntoConstraints = false
         return emaillView
     }()
@@ -171,12 +171,12 @@ class ContactDetailScreen: UIViewController {
         NSLayoutConstraint.activate([
             phonenumberText.topAnchor.constraint(equalTo: phonenumberContainer.topAnchor, constant: 18),
             phonenumberText.heightAnchor.constraint(equalToConstant: 19),
-           // phonenumberText.widthAnchor.constraint(equalToConstant: 130),
+            // phonenumberText.widthAnchor.constraint(equalToConstant: 130),
             phonenumberText.leftAnchor.constraint(equalTo: phonenumberLabel.rightAnchor, constant: 35),
             ])
         
         view.addSubview(emailContainer)
-//        layout for emailContainer
+        //        layout for emailContainer
         NSLayoutConstraint.activate([
             emailContainer.topAnchor.constraint(equalTo: phonenumberContainer.bottomAnchor),
             emailContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -185,7 +185,7 @@ class ContactDetailScreen: UIViewController {
         
         
         emailContainer.addSubview(emailLabel)
-//        layout for emailLabel
+        //        layout for emailLabel
         NSLayoutConstraint.activate([
             emailLabel.topAnchor.constraint(equalTo: emailContainer.topAnchor, constant: 18),
             emailLabel.leftAnchor.constraint(equalTo: emailContainer.leftAnchor, constant: 22),
@@ -193,13 +193,13 @@ class ContactDetailScreen: UIViewController {
             ])
         
         emailContainer.addSubview(emailText)
-//        layout for emailText
-       NSLayoutConstraint.activate([
-       emailText.topAnchor.constraint(equalTo: emailContainer.topAnchor, constant: 18),
-       emailText.heightAnchor.constraint(equalToConstant: 19),
-       //emailText.widthAnchor.constraint(equalToConstant: 161),
-       emailText.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 32)
-        ])
+        //        layout for emailText
+        NSLayoutConstraint.activate([
+            emailText.topAnchor.constraint(equalTo: emailContainer.topAnchor, constant: 18),
+            emailText.heightAnchor.constraint(equalToConstant: 19),
+            //emailText.widthAnchor.constraint(equalToConstant: 161),
+            emailText.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 32)
+            ])
         
     }
     
@@ -215,7 +215,6 @@ class ContactDetailScreen: UIViewController {
             stackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 45),
             stackView.bottomAnchor.constraint(equalTo: topViewContainer.bottomAnchor, constant: -30),
             stackView.centerXAnchor.constraint(equalTo: topViewContainer.centerXAnchor)
-         
             ])
         
         
