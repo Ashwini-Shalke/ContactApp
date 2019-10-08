@@ -14,8 +14,8 @@
 		335013212337A62D00732D90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 335013202337A62D00732D90 /* Assets.xcassets */; };
 		335013242337A62D00732D90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 335013222337A62D00732D90 /* LaunchScreen.storyboard */; };
 		3350132F2337A62D00732D90 /* ContactApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3350132E2337A62D00732D90 /* ContactApplicationTests.swift */; };
-		3350133A2337A62D00732D90 /* ContactApplicationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335013392337A62D00732D90 /* ContactApplicationUITests.swift */; };
 		335013482337A74D00732D90 /* ContactDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335013472337A74D00732D90 /* ContactDetailScreen.swift */; };
+		335E9E75234C5BAA001CFE0E /* sf-ui-text-2-cufonfonts in Resources */ = {isa = PBXBuildFile; fileRef = 335E9E74234C5BAA001CFE0E /* sf-ui-text-2-cufonfonts */; };
 		336A4CA72344440E00A25696 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336A4CA62344440E00A25696 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,9 +49,8 @@
 		3350132E2337A62D00732D90 /* ContactApplicationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactApplicationTests.swift; sourceTree = "<group>"; };
 		335013302337A62D00732D90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		335013352337A62D00732D90 /* ContactApplicationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContactApplicationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		335013392337A62D00732D90 /* ContactApplicationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactApplicationUITests.swift; sourceTree = "<group>"; };
-		3350133B2337A62D00732D90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		335013472337A74D00732D90 /* ContactDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailScreen.swift; sourceTree = "<group>"; };
+		335E9E74234C5BAA001CFE0E /* sf-ui-text-2-cufonfonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "sf-ui-text-2-cufonfonts"; path = "../../../Desktop/sf-ui-text-2-cufonfonts"; sourceTree = "<group>"; };
 		336A4CA62344440E00A25696 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,8 +84,8 @@
 			children = (
 				335013152337A62900732D90 /* ContactApplication */,
 				3350132D2337A62D00732D90 /* ContactApplicationTests */,
-				335013382337A62D00732D90 /* ContactApplicationUITests */,
 				335013142337A62900732D90 /* Products */,
+				335E9E74234C5BAA001CFE0E /* sf-ui-text-2-cufonfonts */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,15 +122,6 @@
 				335013302337A62D00732D90 /* Info.plist */,
 			);
 			path = ContactApplicationTests;
-			sourceTree = "<group>";
-		};
-		335013382337A62D00732D90 /* ContactApplicationUITests */ = {
-			isa = PBXGroup;
-			children = (
-				335013392337A62D00732D90 /* ContactApplicationUITests.swift */,
-				3350133B2337A62D00732D90 /* Info.plist */,
-			);
-			path = ContactApplicationUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +230,7 @@
 			files = (
 				335013242337A62D00732D90 /* LaunchScreen.storyboard in Resources */,
 				335013212337A62D00732D90 /* Assets.xcassets in Resources */,
+				335E9E75234C5BAA001CFE0E /* sf-ui-text-2-cufonfonts in Resources */,
 				3350131C2337A62900732D90 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,7 +276,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3350133A2337A62D00732D90 /* ContactApplicationUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
