@@ -17,8 +17,8 @@ extension UIImageView {
 
 extension UIColor {
     static var lightGreen = UIColor(red: 80/255, green: 227/255, blue: 194/255, alpha: 1.0)
-    static var customBlue = UIColor(red: 225/255, green: 248/255, blue: 230/255, alpha: 100)
-    static var gradientBlue = UIColor(red: 223/255, green: 246/255, blue: 241/255, alpha: 1.0)
+    static var customBlue = UIColor(red: 225/255, green: 248/255, blue: 230/255, alpha: 0.5)
+    static var gradientBlue = UIColor(red: 223/255, green: 246/255, blue: 241/255, alpha: 1)
     static var customGray = UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha: 1)
 }
 
