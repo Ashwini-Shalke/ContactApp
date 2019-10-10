@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3348EF70234F288800A8AA54 /* EditContactScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3348EF6F234F288800A8AA54 /* EditContactScreen.swift */; };
 		335013172337A62900732D90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335013162337A62900732D90 /* AppDelegate.swift */; };
 		335013192337A62900732D90 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335013182337A62900732D90 /* HomeScreen.swift */; };
 		3350131C2337A62900732D90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3350131A2337A62900732D90 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3348EF6F234F288800A8AA54 /* EditContactScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactScreen.swift; sourceTree = "<group>"; };
 		335013132337A62900732D90 /* ContactApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		335013162337A62900732D90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		335013182337A62900732D90 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
@@ -104,12 +106,13 @@
 				335013162337A62900732D90 /* AppDelegate.swift */,
 				335013182337A62900732D90 /* HomeScreen.swift */,
 				335013472337A74D00732D90 /* ContactDetailScreen.swift */,
+				3348EF6F234F288800A8AA54 /* EditContactScreen.swift */,
+				336A4CA62344440E00A25696 /* Extensions.swift */,
 				3350131A2337A62900732D90 /* Main.storyboard */,
 				335013202337A62D00732D90 /* Assets.xcassets */,
 				335013222337A62D00732D90 /* LaunchScreen.storyboard */,
 				335013252337A62D00732D90 /* Info.plist */,
 				3350131D2337A62900732D90 /* ContactApplication.xcdatamodeld */,
-				336A4CA62344440E00A25696 /* Extensions.swift */,
 			);
 			path = ContactApplication;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				335013192337A62900732D90 /* HomeScreen.swift in Sources */,
 				3350131F2337A62900732D90 /* ContactApplication.xcdatamodeld in Sources */,
 				335013172337A62900732D90 /* AppDelegate.swift in Sources */,
+				3348EF70234F288800A8AA54 /* EditContactScreen.swift in Sources */,
 				335013482337A74D00732D90 /* ContactDetailScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

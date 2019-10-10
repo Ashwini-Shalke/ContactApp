@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 struct Fonts {
-    
     static let SFUITextBold = "SFUIText-Bold"
     static let SFUITextRegular = "SFUIText-Regular"
     
@@ -20,14 +19,24 @@ class ContactDetailScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(addTapped))
-        navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
         navigationController?.navigationBar.tintColor = UIColor.lightGreen
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(pushToEditContactScreen))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Contact", style: .plain, target: self, action: #selector(backToHomeScreen))
         //navigationController?.navigationBar.barTintColor = UIColor.customBlue
         navigationController?.navigationBar.shadowImage = UIImage()
         autolayout()
     }
-   
+    
+    @objc func pushToEditContactScreen(){
+        let editContactScreen = EditContactScreen()
+        navigationController?.pushViewController(editContactScreen, animated: false)
+    }
+    
+    @objc func backToHomeScreen(){
+        let homeScreen = HomeScreen()
+        navigationController?.pushViewController(homeScreen, animated: true)
+    }
     
     let topViewContainer : UIView = {
         let topView = UIView()
@@ -56,12 +65,6 @@ class ContactDetailScreen: UIViewController {
         placeholder.font = UIFont(name: Fonts.SFUITextBold, size: 19)
         return placeholder
     }()
-    
-    
-    @objc func addTapped(){
-        
-    }
-    
     
     let messageButton: UIButton = {
         let messageImage = UIImage(named: "message_button") as UIImage?
@@ -138,6 +141,7 @@ class ContactDetailScreen: UIViewController {
         let phoneLabel = UILabel()
         phoneLabel.text = "mobile"
         phoneLabel.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
+        phoneLabel.adjustsFontSizeToFitWidth = true
         phoneLabel.textColor = UIColor.gray
         phoneLabel.translatesAutoresizingMaskIntoConstraints = false
         return phoneLabel
@@ -165,6 +169,7 @@ class ContactDetailScreen: UIViewController {
         let email = UILabel()
         email.text = "email"
         email.font = UIFont(name:Fonts.SFUITextRegular, size: 16)
+        email.adjustsFontSizeToFitWidth = true
         email.textColor = UIColor.gray
         email.translatesAutoresizingMaskIntoConstraints = false
         return email
@@ -210,7 +215,7 @@ class ContactDetailScreen: UIViewController {
         
         //        layout for bottom contol buttons
         controlButtonLayout()
-     
+        
         view.addSubview(phonenumberContainer)
         //        layout for phonenumbercontainer
         NSLayoutConstraint.activate([
@@ -224,8 +229,8 @@ class ContactDetailScreen: UIViewController {
         //        layout for phonenumberLabel
         NSLayoutConstraint.activate([
             phonenumberLabel.topAnchor.constraint(equalTo: phonenumberContainer.topAnchor, constant: 18),
+            phonenumberLabel.widthAnchor.constraint(equalToConstant: 48),
             phonenumberLabel.leftAnchor.constraint(equalTo: phonenumberContainer.leftAnchor, constant: 22),
-            phonenumberLabel.rightAnchor.constraint(equalTo: phonenumberContainer.rightAnchor, constant: 308),
             phonenumberLabel.heightAnchor.constraint(equalToConstant: 19)
             ])
         
@@ -234,7 +239,7 @@ class ContactDetailScreen: UIViewController {
         NSLayoutConstraint.activate([
             phonenumberText.topAnchor.constraint(equalTo: phonenumberContainer.topAnchor, constant: 18),
             phonenumberText.heightAnchor.constraint(equalToConstant: 19),
-            phonenumberText.leftAnchor.constraint(equalTo: phonenumberContainer.leftAnchor, constant: 102),
+            phonenumberText.leftAnchor.constraint(equalTo: phonenumberLabel.rightAnchor, constant: 32),
             phonenumberText.rightAnchor.constraint(equalTo: phonenumberContainer.rightAnchor, constant: -10)
             ])
         
@@ -252,7 +257,7 @@ class ContactDetailScreen: UIViewController {
         NSLayoutConstraint.activate([
             emailLabel.topAnchor.constraint(equalTo: emailContainer.topAnchor, constant: 18),
             emailLabel.leftAnchor.constraint(equalTo: emailContainer.leftAnchor, constant: 22),
-            emailLabel.rightAnchor.constraint(equalTo: emailContainer.rightAnchor, constant: 307),
+            emailLabel.widthAnchor.constraint(equalToConstant: 38),
             emailLabel.heightAnchor.constraint(equalToConstant: 19)
             ])
         
@@ -261,7 +266,7 @@ class ContactDetailScreen: UIViewController {
         NSLayoutConstraint.activate([
             emailText.topAnchor.constraint(equalTo: emailContainer.topAnchor, constant: 18),
             emailText.heightAnchor.constraint(equalToConstant: 19),
-            emailText.leftAnchor.constraint(equalTo: emailContainer.leftAnchor, constant: 102),
+            emailText.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 32),
             emailText.rightAnchor.constraint(equalTo: emailContainer.rightAnchor, constant: -10)
             ])
         
