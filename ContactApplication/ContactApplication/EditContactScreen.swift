@@ -58,6 +58,7 @@ class EditContactScreen: UIViewController{
         let firstNameLabel = UILabel()
         firstNameLabel.text = "First Name"
         firstNameLabel.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
+        firstNameLabel.adjustsFontSizeToFitWidth = true
         firstNameLabel.textColor = UIColor.gray
         firstNameLabel.translatesAutoresizingMaskIntoConstraints = false
         return firstNameLabel
@@ -76,6 +77,8 @@ class EditContactScreen: UIViewController{
     let lastNameContainer: UIView = {
         let lastNameView = UIView()
         //phonenumberView.backgroundColor = UIColor.lightGray
+        lastNameView.layer.borderWidth = 0.4
+        lastNameView.layer.borderColor = UIColor.gray.cgColor
         lastNameView.translatesAutoresizingMaskIntoConstraints = false
         return lastNameView
     }()
@@ -84,6 +87,7 @@ class EditContactScreen: UIViewController{
         let lastNameLabel = UILabel()
         lastNameLabel.text = "Last Name"
         lastNameLabel.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
+        lastNameLabel.adjustsFontSizeToFitWidth = true
         lastNameLabel.textColor = UIColor.gray
         lastNameLabel.translatesAutoresizingMaskIntoConstraints = false
         return lastNameLabel
@@ -98,6 +102,63 @@ class EditContactScreen: UIViewController{
         lastNameText.translatesAutoresizingMaskIntoConstraints = false
         return lastNameText
     }()
+    
+    let mobileNumberContainer: UIView = {
+        let mobileView = UIView()
+        //phonenumberView.backgroundColor = UIColor.lightGray
+        mobileView.translatesAutoresizingMaskIntoConstraints = false
+        return mobileView
+    }()
+    
+    let mobileNumberLabel: UILabel = {
+        let mobileLabel = UILabel()
+        mobileLabel.text = "mobile"
+        mobileLabel.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
+        mobileLabel.adjustsFontSizeToFitWidth = true
+        mobileLabel.textColor = UIColor.gray
+        mobileLabel.translatesAutoresizingMaskIntoConstraints = false
+        return mobileLabel
+    }()
+    
+    let mobileNumberText: UITextField = {
+        let mobileText = UITextField ()
+        // phoneText.backgroundColor = UIColor.green
+        mobileText.text = "919075721798919075721798919075721798919075721798919075721798"
+        mobileText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
+        mobileText.textAlignment = .right
+        mobileText.isUserInteractionEnabled = true
+        mobileText.translatesAutoresizingMaskIntoConstraints = false
+        return mobileText
+    }()
+    
+    let emailContainer: UIView = {
+        let emailView = UIView()
+        emailView.layer.borderWidth = 0.4
+        emailView.layer.borderColor = UIColor.gray.cgColor
+        emailView.translatesAutoresizingMaskIntoConstraints = false
+        return emailView
+    }()
+    
+    let emailLabel: UILabel = {
+        let email = UILabel()
+        email.text = "email"
+        email.font = UIFont(name:Fonts.SFUITextRegular, size: 16)
+        email.adjustsFontSizeToFitWidth = true
+        email.textColor = UIColor.gray
+        email.translatesAutoresizingMaskIntoConstraints = false
+        return email
+    }()
+    
+    let emailText: UITextField = {
+        let email = UITextField ()
+        email.text = "ashwinishalke050@gmail.comashwinishalke050@gmail.comashwinishalke050@gmail.com"
+        email.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
+        email.isUserInteractionEnabled = false
+        email.translatesAutoresizingMaskIntoConstraints = false
+        return email
+    }()
+    
+    
     
 
     
@@ -122,7 +183,7 @@ class EditContactScreen: UIViewController{
             ])
         
         view.addSubview(firstNameContainer)
-        //        layout for phonenumbercontainer
+        //        layout for firstNameContainer
         NSLayoutConstraint.activate([
             firstNameContainer.topAnchor.constraint(equalTo: topViewContainer.bottomAnchor),
             firstNameContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -131,16 +192,16 @@ class EditContactScreen: UIViewController{
             ])
         
         firstNameContainer.addSubview(firstNameLabel)
-        //        layout for phonenumberLabel
+        //        layout for firstNameLabel
         NSLayoutConstraint.activate([
             firstNameLabel.topAnchor.constraint(equalTo: firstNameContainer.topAnchor, constant: 18),
             firstNameLabel.leftAnchor.constraint(equalTo: firstNameContainer.leftAnchor, constant: 22),
-            firstNameLabel.rightAnchor.constraint(equalTo: firstNameContainer.rightAnchor, constant: 308),
+            firstNameLabel.widthAnchor.constraint(equalToConstant: 77),
             firstNameLabel.heightAnchor.constraint(equalToConstant: 19)
             ])
         
         firstNameContainer.addSubview(firstNameText)
-        //        layout for phonenumberText
+        //        layout for firstNameText
         NSLayoutConstraint.activate([
             firstNameText.topAnchor.constraint(equalTo: firstNameContainer.topAnchor, constant: 18),
             firstNameText.heightAnchor.constraint(equalToConstant: 19),
@@ -150,7 +211,7 @@ class EditContactScreen: UIViewController{
         
         
         view.addSubview(lastNameContainer)
-        //        layout for phonenumbercontainer
+        //        layout for lastNameContainer
         NSLayoutConstraint.activate([
             lastNameContainer.topAnchor.constraint(equalTo: firstNameContainer.bottomAnchor),
             lastNameContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -158,23 +219,79 @@ class EditContactScreen: UIViewController{
             lastNameContainer.heightAnchor.constraint(equalToConstant: 56)
             ])
         
-        firstNameContainer.addSubview(lastNameLabel)
-        //        layout for phonenumberLabel
+        lastNameContainer.addSubview(lastNameLabel)
+        //        layout for lastNameLabel
         NSLayoutConstraint.activate([
             lastNameLabel.topAnchor.constraint(equalTo: lastNameContainer.topAnchor, constant: 18),
             lastNameLabel.leftAnchor.constraint(equalTo: lastNameContainer.leftAnchor, constant: 22),
-            lastNameLabel.rightAnchor.constraint(equalTo: lastNameContainer.rightAnchor, constant: 308),
+           lastNameLabel.widthAnchor.constraint(equalToConstant: 77),
             lastNameLabel.heightAnchor.constraint(equalToConstant: 19)
             ])
         
-        firstNameContainer.addSubview(lastNameText)
-        //        layout for phonenumberText
+        lastNameContainer.addSubview(lastNameText)
+        //        layout for lastNameText
         NSLayoutConstraint.activate([
             lastNameText.topAnchor.constraint(equalTo: lastNameContainer.topAnchor, constant: 18),
             lastNameText.heightAnchor.constraint(equalToConstant: 19),
-            lastNameText.leftAnchor.constraint(equalTo: lastNameContainer.leftAnchor, constant: 102),
+            lastNameText.leftAnchor.constraint(equalTo: lastNameLabel.rightAnchor, constant: 21),
             lastNameText.rightAnchor.constraint(equalTo: lastNameContainer.rightAnchor, constant: -10)
             ])
+        
+        view.addSubview(mobileNumberContainer)
+        //        layout for mobileNumberContainer
+        NSLayoutConstraint.activate([
+            mobileNumberContainer.topAnchor.constraint(equalTo: lastNameContainer.bottomAnchor),
+            mobileNumberContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
+            mobileNumberContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
+            mobileNumberContainer.heightAnchor.constraint(equalToConstant: 56)
+            ])
+        
+        mobileNumberContainer.addSubview(mobileNumberLabel)
+        //        layout for mobileNumberLabel
+        NSLayoutConstraint.activate([
+            mobileNumberLabel.topAnchor.constraint(equalTo: mobileNumberContainer.topAnchor, constant: 18),
+            mobileNumberLabel.leftAnchor.constraint(equalTo: mobileNumberContainer.leftAnchor, constant: 54),
+            mobileNumberLabel.widthAnchor.constraint(equalToConstant: 44),
+            mobileNumberLabel.heightAnchor.constraint(equalToConstant: 19)
+            ])
+        
+        mobileNumberContainer.addSubview(mobileNumberText)
+        //        layout for mobileNumberText
+        NSLayoutConstraint.activate([
+            mobileNumberText.topAnchor.constraint(equalTo: mobileNumberContainer.topAnchor, constant: 18),
+            mobileNumberText.heightAnchor.constraint(equalToConstant: 19),
+            mobileNumberText.leftAnchor.constraint(equalTo: mobileNumberLabel.rightAnchor, constant: 21),
+            mobileNumberText.rightAnchor.constraint(equalTo: mobileNumberContainer.rightAnchor, constant: -10)
+            ])
+        
+        view.addSubview(emailContainer)
+        //        layout for emailContainer
+        NSLayoutConstraint.activate([
+            emailContainer.topAnchor.constraint(equalTo: mobileNumberContainer.bottomAnchor),
+            emailContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
+            emailContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
+            emailContainer.heightAnchor.constraint(equalToConstant: 56)
+            ])
+        
+        emailContainer.addSubview(emailLabel)
+        //        layout for emailLabel
+        NSLayoutConstraint.activate([
+            emailLabel.topAnchor.constraint(equalTo: emailContainer.topAnchor, constant: 18),
+            emailLabel.leftAnchor.constraint(equalTo: emailContainer.leftAnchor, constant: 64),
+            emailLabel.widthAnchor.constraint(equalToConstant: 38),
+            emailLabel.heightAnchor.constraint(equalToConstant: 19)
+            ])
+        
+        emailContainer.addSubview(emailText)
+        //        layout for emailText
+        NSLayoutConstraint.activate([
+            emailText.topAnchor.constraint(equalTo: emailContainer.topAnchor, constant: 18),
+            emailText.heightAnchor.constraint(equalToConstant: 19),
+            emailText.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 21),
+            emailText.rightAnchor.constraint(equalTo: emailContainer.rightAnchor, constant: -10)
+            ])
+        
+        
     }
     
     
