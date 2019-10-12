@@ -47,6 +47,16 @@ class EditContactScreen: UIViewController{
         return placeholder
     }()
     
+    let addImageView: UIImageView = {
+       let image = UIImage(named: "camera_button")
+       let addImage = UIImageView()
+        addImage.image = image
+        addImage.clipsToBounds = true
+        addImage.round()
+        addImage.translatesAutoresizingMaskIntoConstraints = false
+        return addImage
+    }()
+    
     let firstNameContainer: UIView = {
         let firstNameView = UIView()
         //phonenumberView.backgroundColor = UIColor.lightGray
@@ -181,6 +191,16 @@ class EditContactScreen: UIViewController{
                         placeHolderImageView.bottomAnchor.constraint(equalTo: topViewContainer.bottomAnchor, constant: -18),
             placeHolderImageView.widthAnchor.constraint(equalToConstant: 160)
             ])
+        
+        placeHolderImageView.addSubview(addImageView)
+//        layout for addImageView
+        NSLayoutConstraint.activate([
+            addImageView.topAnchor.constraint(equalTo: placeHolderImageView.topAnchor, constant: 109),
+            addImageView.leftAnchor.constraint(equalTo: placeHolderImageView.leftAnchor, constant: 111),
+           // addImageView.rightAnchor.constraint(equalTo: placeHolderImageView.rightAnchor, constant: -22),
+            addImageView.widthAnchor.constraint(equalToConstant: 41),
+            addImageView.heightAnchor.constraint(equalToConstant: 41)])
+        
         
         view.addSubview(firstNameContainer)
         //        layout for firstNameContainer
