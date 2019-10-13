@@ -1,15 +1,15 @@
 //
-//  EditContactScreen.swift
+//  AddContactScreen.swift
 //  ContactApplication
 //
-//  Created by Ashwini shalke on 10/10/19.
+//  Created by Ashwini shalke on 12/10/19.
 //  Copyright © 2019 Ashwini Shalke. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class EditContactScreen: UIViewController{
+class AddContactScreen: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,12 +21,13 @@ class EditContactScreen: UIViewController{
     }
     
     @objc func addTapped(){
-        //need to implement
+        let homeScreen = HomeScreen()
+        navigationController?.pushViewController(homeScreen, animated: false)
     }
     
     @objc func backToContactDetailScreen(){
-        let CDScreen = ContactDetailScreen()
-        navigationController?.pushViewController(CDScreen, animated: false)
+        let homeScreen = HomeScreen()
+        navigationController?.pushViewController(homeScreen, animated: false)
     }
     
     let topViewContainer : UIView = {
@@ -48,8 +49,8 @@ class EditContactScreen: UIViewController{
     }()
     
     let addImageView: UIImageView = {
-       let image = UIImage(named: "camera_button")
-       let addImage = UIImageView()
+        let image = UIImage(named: "camera_button")
+        let addImage = UIImageView()
         addImage.image = image
         addImage.clipsToBounds = true
         addImage.round()
@@ -77,11 +78,10 @@ class EditContactScreen: UIViewController{
     let firstNameText: UITextField = {
         let firstNameText = UITextField ()
         // phoneText.backgroundColor = UIColor.green
-        firstNameText.text = "Ashwini"
         firstNameText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         firstNameText.isUserInteractionEnabled = true
+        //firstNameText
         firstNameText.translatesAutoresizingMaskIntoConstraints = false
-        firstNameText.becomeFirstResponder()
         return firstNameText
     }()
     
@@ -107,7 +107,6 @@ class EditContactScreen: UIViewController{
     let lastNameText: UITextField = {
         let lastNameText = UITextField ()
         // phoneText.backgroundColor = UIColor.green
-        lastNameText.text = "Shalke"
         lastNameText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         lastNameText.isUserInteractionEnabled = true
         lastNameText.translatesAutoresizingMaskIntoConstraints = false
@@ -134,7 +133,6 @@ class EditContactScreen: UIViewController{
     let mobileNumberText: UITextField = {
         let mobileText = UITextField ()
         // phoneText.backgroundColor = UIColor.green
-        mobileText.text = "919075721798919075721798919075721798919075721798919075721798"
         mobileText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         mobileText.textAlignment = .right
         mobileText.isUserInteractionEnabled = true
@@ -162,7 +160,6 @@ class EditContactScreen: UIViewController{
     
     let emailText: UITextField = {
         let email = UITextField ()
-        email.text = "ashwinishalke050@gmail.comashwinishalke050@gmail.comashwinishalke050@gmail.com"
         email.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         email.isUserInteractionEnabled = true
         email.translatesAutoresizingMaskIntoConstraints = false
@@ -171,7 +168,7 @@ class EditContactScreen: UIViewController{
     
     
     
-
+    
     
     
     func autolayout() {
@@ -189,16 +186,16 @@ class EditContactScreen: UIViewController{
         NSLayoutConstraint.activate([
             placeHolderImageView.topAnchor.constraint(equalTo: topViewContainer.topAnchor, constant: 19),
             placeHolderImageView.centerXAnchor.constraint(equalTo: topViewContainer.centerXAnchor),
-                        placeHolderImageView.bottomAnchor.constraint(equalTo: topViewContainer.bottomAnchor, constant: -18),
+            placeHolderImageView.bottomAnchor.constraint(equalTo: topViewContainer.bottomAnchor, constant: -18),
             placeHolderImageView.widthAnchor.constraint(equalToConstant: 160)
             ])
         
         placeHolderImageView.addSubview(addImageView)
-//        layout for addImageView
+        //        layout for addImageView
         NSLayoutConstraint.activate([
             addImageView.topAnchor.constraint(equalTo: placeHolderImageView.topAnchor, constant: 109),
             addImageView.leftAnchor.constraint(equalTo: placeHolderImageView.leftAnchor, constant: 111),
-           // addImageView.rightAnchor.constraint(equalTo: placeHolderImageView.rightAnchor, constant: -22),
+            // addImageView.rightAnchor.constraint(equalTo: placeHolderImageView.rightAnchor, constant: -22),
             addImageView.widthAnchor.constraint(equalToConstant: 41),
             addImageView.heightAnchor.constraint(equalToConstant: 41)])
         
@@ -245,7 +242,7 @@ class EditContactScreen: UIViewController{
         NSLayoutConstraint.activate([
             lastNameLabel.topAnchor.constraint(equalTo: lastNameContainer.topAnchor, constant: 18),
             lastNameLabel.leftAnchor.constraint(equalTo: lastNameContainer.leftAnchor, constant: 22),
-           lastNameLabel.widthAnchor.constraint(equalToConstant: 77),
+            lastNameLabel.widthAnchor.constraint(equalToConstant: 77),
             lastNameLabel.heightAnchor.constraint(equalToConstant: 19)
             ])
         
@@ -317,3 +314,4 @@ class EditContactScreen: UIViewController{
     
     
 }
+
