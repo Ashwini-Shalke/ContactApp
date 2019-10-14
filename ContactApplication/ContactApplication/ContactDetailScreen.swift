@@ -15,7 +15,7 @@ struct Fonts {
     
 }
 
-class ContactDetailScreen: UIViewController {
+class ContactDetailScreen: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
@@ -156,6 +156,9 @@ class ContactDetailScreen: UIViewController {
         phoneText.translatesAutoresizingMaskIntoConstraints = false
         return phoneText
     }()
+    
+    
+    
     
     let emailContainer: UIView = {
         let emailView = UIView()
@@ -316,6 +319,8 @@ class ContactDetailScreen: UIViewController {
             favouriteButtonLabel.heightAnchor.constraint(equalToConstant: 14)
             ])
     }
+    
+ 
 }
 
 

@@ -136,6 +136,7 @@ class AddContactScreen: UIViewController{
         mobileText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         mobileText.textAlignment = .right
         mobileText.isUserInteractionEnabled = true
+        mobileText.keyboardType = .numberPad
         mobileText.translatesAutoresizingMaskIntoConstraints = false
         return mobileText
     }()

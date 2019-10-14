@@ -81,7 +81,7 @@ class EditContactScreen: UIViewController{
         firstNameText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         firstNameText.isUserInteractionEnabled = true
         firstNameText.translatesAutoresizingMaskIntoConstraints = false
-        firstNameText.becomeFirstResponder()
+       // firstNameText.becomeFirstResponder()
         return firstNameText
     }()
     
@@ -138,6 +138,7 @@ class EditContactScreen: UIViewController{
         mobileText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         mobileText.textAlignment = .right
         mobileText.isUserInteractionEnabled = true
+        mobileText.keyboardType = .numberPad
         mobileText.translatesAutoresizingMaskIntoConstraints = false
         return mobileText
     }()
@@ -312,8 +313,9 @@ class EditContactScreen: UIViewController{
             emailText.rightAnchor.constraint(equalTo: emailContainer.rightAnchor, constant: -10)
             ])
         
-        
     }
+    
+    
     
     
 }
