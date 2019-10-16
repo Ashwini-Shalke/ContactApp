@@ -11,6 +11,7 @@ import UIKit
 class HomeScreen: UITableViewController {
 
     let cellID = "cell"
+    var arrayContact = [contactData]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +21,30 @@ class HomeScreen: UITableViewController {
         navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Groups", style: .plain, target: self, action: #selector(addTapped))
         navigationItem.leftBarButtonItem?.tintColor = UIColor.lightGreen
+        
+        //getData()
+    }
+    
+    func getData(){
+        print("Hello")
+        guard  let url = URL(string: "​http://gojek-contacts-app.herokuapp.com/apipie/1.0/contacts.json") else {
+            print ("URL doesnt work ")
+            return }
+        URLSession.shared.dataTask(with: url) { (data, response, err) in
+            guard let data = data else { return }
+            do {
+                if err == nil {
+                self.arrayContact = try JSONDecoder().decode([contactData].self, from: data)
+                for mainArr in self.arrayContact {
+                    print(mainArr.first_name)
+                }
+                
+                } }
+            catch{
+                print("Unable to fetch Data")
+            }
+        }.resume()
+        
     }
   
     @objc func addTapped(){

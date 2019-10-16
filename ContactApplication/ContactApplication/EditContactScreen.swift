@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class EditContactScreen: UIViewController{
+class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,13 +47,14 @@ class EditContactScreen: UIViewController{
         return placeholder
     }()
     
-    let addImageView: UIImageView = {
+    let addImageButtonView: UIImageView = {
        let image = UIImage(named: "camera_button")
        let addImage = UIImageView()
         addImage.image = image
         addImage.clipsToBounds = true
         addImage.round()
         addImage.translatesAutoresizingMaskIntoConstraints = false
+        
         return addImage
     }()
     
@@ -194,14 +195,14 @@ class EditContactScreen: UIViewController{
             placeHolderImageView.widthAnchor.constraint(equalToConstant: 160)
             ])
         
-        placeHolderImageView.addSubview(addImageView)
+        placeHolderImageView.addSubview(addImageButtonView)
 //        layout for addImageView
         NSLayoutConstraint.activate([
-            addImageView.topAnchor.constraint(equalTo: placeHolderImageView.topAnchor, constant: 109),
-            addImageView.leftAnchor.constraint(equalTo: placeHolderImageView.leftAnchor, constant: 111),
+            addImageButtonView.topAnchor.constraint(equalTo: placeHolderImageView.topAnchor, constant: 109),
+            addImageButtonView.leftAnchor.constraint(equalTo: placeHolderImageView.leftAnchor, constant: 111),
            // addImageView.rightAnchor.constraint(equalTo: placeHolderImageView.rightAnchor, constant: -22),
-            addImageView.widthAnchor.constraint(equalToConstant: 41),
-            addImageView.heightAnchor.constraint(equalToConstant: 41)])
+            addImageButtonView.widthAnchor.constraint(equalToConstant: 41),
+            addImageButtonView.heightAnchor.constraint(equalToConstant: 41)])
         
         
         view.addSubview(firstNameContainer)
@@ -312,10 +313,8 @@ class EditContactScreen: UIViewController{
             emailText.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 21),
             emailText.rightAnchor.constraint(equalTo: emailContainer.rightAnchor, constant: -10)
             ])
-        
-    }
-    
-    
-    
+        }
+
+
     
 }
