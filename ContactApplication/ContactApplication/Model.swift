@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-struct contactData : Decodable {
-    let first_name: String
-    let  last_name: String
-    let profile_pic: String
-    let favorite: String
+struct contactData:Decodable {
+    let first_name:String
+    let  last_name:String
+    let profile_pic:String
+    let favorite: Bool
 }

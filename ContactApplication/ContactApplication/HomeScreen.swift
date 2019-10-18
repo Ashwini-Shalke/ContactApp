@@ -8,60 +8,69 @@
 
 import UIKit
 
-class HomeScreen: UITableViewController {
-
+class HomeScreen: UITableViewController{
+    
     let cellID = "cell"
     var arrayContact = [contactData]()
+    let item = [String]()
+    var dictonaryContact = [String: [String]]()
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         self.navigationItem.title = "Contact"
-       navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action:#selector(moveToAddContactScreen))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action:#selector(moveToAddContactScreen))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Groups", style: .plain, target: self, action: #selector(addTapped))
         navigationItem.leftBarButtonItem?.tintColor = UIColor.lightGreen
-        
-        //getData()
+         getData()
     }
     
     func getData(){
-        print("Hello")
-        guard  let url = URL(string: "​http://gojek-contacts-app.herokuapp.com/apipie/1.0/contacts.json") else {
-            print ("URL doesnt work ")
-            return }
+        let jsonURLString = "https://gojek-contacts-app.herokuapp.com/contacts.json"
+        guard let url = URL(string: jsonURLString) else { return }
         URLSession.shared.dataTask(with: url) { (data, response, err) in
             guard let data = data else { return }
             do {
-                if err == nil {
                 self.arrayContact = try JSONDecoder().decode([contactData].self, from: data)
-                for mainArr in self.arrayContact {
-                    print(mainArr.first_name)
+                
+                for item in self.arrayContact {
+                    let key = String(item.last_name.prefix(1))
+                    if var contactValues = self.dictonaryContact[key] {
+                       contactValues.append(item.last_name)
+                        self.dictonaryContact[key] = contactValues
+                    }
+                    
+                    
                 }
                 
-                } }
-            catch{
-                print("Unable to fetch Data")
+                DispatchQueue.main.async { self.tableView.reloadData() }
+            } catch let jsonErr{
+                print("Unable to fetch Data",jsonErr)
             }
-        }.resume()
+            }.resume()
         
     }
-  
+    
     @objc func addTapped(){
         
     }
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return arrayContact.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
-        cell.textLabel?.text = "test"
+        //print(arrayContact[indexPath.row].first_name + " " + arrayContact[indexPath.row].last_name)
+        cell.textLabel?.text = arrayContact[indexPath.row].first_name + " " + arrayContact[indexPath.row].last_name
         return cell
     }
     
@@ -76,7 +85,7 @@ class HomeScreen: UITableViewController {
         navigationController?.pushViewController(addContact, animated: true)
         
     }
-
-
+    
+    
 }
 
