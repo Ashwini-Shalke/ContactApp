@@ -15,8 +15,10 @@ class AddContactScreen: UIViewController{
         super.viewDidLoad()
         view.backgroundColor =  UIColor.white
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backToContactDetailScreen))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
             , target: self, action: #selector(addTapped))
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.lightGreen
         autolayout()
     }
     
@@ -54,6 +56,7 @@ class AddContactScreen: UIViewController{
         addImage.image = image
         addImage.clipsToBounds = true
         addImage.round()
+       // let tapGestureReconginser =  UITapGestureRecognizer(target: self, action: #selector(AddContactScreen.))
         addImage.translatesAutoresizingMaskIntoConstraints = false
         return addImage
     }()

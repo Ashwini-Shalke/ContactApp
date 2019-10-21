@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +18,9 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
             , target: self, action: #selector(addTapped))
         autolayout()
+        let tapGesture = UITapGestureRecognizer(target: self, action: Selector(("pickImage:")))
+        tapGesture.delegate = self
+        addImageButtonView.addGestureRecognizer(tapGesture)
     }
     
     @objc func addTapped(){
@@ -53,6 +56,9 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         addImage.image = image
         addImage.clipsToBounds = true
         addImage.round()
+        let tapGestureReconginser = UITapGestureRecognizer(target: self, action: #selector(pickImage))
+        addImage.addGestureRecognizer(tapGestureReconginser)
+        addImage.isUserInteractionEnabled = true
         addImage.translatesAutoresizingMaskIntoConstraints = false
         
         return addImage
@@ -170,11 +176,6 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         email.translatesAutoresizingMaskIntoConstraints = false
         return email
     }()
-    
-    
-    
-
-    
     
     func autolayout() {
         view.addSubview(topViewContainer)
@@ -314,6 +315,40 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             emailText.rightAnchor.constraint(equalTo: emailContainer.rightAnchor, constant: -10)
             ])
         }
+    
+    @objc func pickImage(sender: AnyObject) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        
+        let actionsheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
+        actionsheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
+            imagePickerController.sourceType = .camera
+            self.present(imagePickerController,animated: true ,completion : nil)
+        }))
+        
+        actionsheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
+            imagePickerController.sourceType = .photoLibrary
+            self.present(imagePickerController,animated: true, completion: nil)
+        }))
+        
+        actionsheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction) in
+            self.present(imagePickerController,animated: true, completion: nil)
+            
+        }))
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[.originalImage] as! UIImage
+        placeHolderImageView.image = image
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    
 
 
     
