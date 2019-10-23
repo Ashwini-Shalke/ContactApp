@@ -43,8 +43,11 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         let image = UIImage(named: "placeholder_photo")
         let placeholder = UIImageView()
         placeholder.image = image
-        placeholder.clipsToBounds = true
+        placeholder.frame = CGRect(x: 0, y: 0, width: 160, height: 0)
         placeholder.round()
+        placeholder.clipsToBounds = true
+        placeholder.layer.borderColor = UIColor.white.cgColor
+        placeholder.layer.borderWidth = 3.0
         placeholder.translatesAutoresizingMaskIntoConstraints = false
         return placeholder
     }()
