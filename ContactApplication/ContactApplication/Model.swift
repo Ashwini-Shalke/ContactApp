@@ -14,4 +14,7 @@ struct contactData:Decodable {
     let  last_name:String
     let profile_pic:String
     let favorite: Bool
+    let id:Int
 }
+
+

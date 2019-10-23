@@ -53,7 +53,7 @@ class AddContactScreen: UIViewController{
     let addImageView: UIImageView = {
         let image = UIImage(named: "camera_button")
         let addImage = UIImageView()
-        addImage.image = image
+      //  addImage.image = image
         addImage.clipsToBounds = true
         addImage.round()
        // let tapGestureReconginser =  UITapGestureRecognizer(target: self, action: #selector(AddContactScreen.))

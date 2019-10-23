@@ -23,7 +23,6 @@ class ContactDetailScreen: UIViewController{
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(pushToEditContactScreen))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Contact", style: .plain, target: self, action: #selector(backToHomeScreen))
-        //navigationController?.navigationBar.barTintColor = UIColor.customBlue
         navigationController?.navigationBar.shadowImage = UIImage()
         autolayout()
     }

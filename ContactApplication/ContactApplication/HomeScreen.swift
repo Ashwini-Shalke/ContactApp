@@ -9,7 +9,7 @@
 import UIKit
 
 class HomeScreen: UITableViewController{
-    
+   
     let cellID = "cell"
     var arrayContact = [contactData]()
     let item = [String]()
@@ -36,19 +36,35 @@ class HomeScreen: UITableViewController{
         
     }
     
+//    var favoriteContacts = [FavoriteContact]()
+//    try store.enumerateContacts(with: request, usingBlock: { (contact,stopPointerIfYouwantToStopEnumeration) in
+//    print(contact.givenName)
+//    print(contact.familyName)
+//    print(contact.phoneNumbers.first?.value.stringValue ?? " ")
+//    // favoriteContacts.append(FavoriteContact(IsFav: false, names: contact.givenName + " " + contact.familyName))
+//    favoriteContacts.append(FavoriteContact(isFav : false, favContactsName : contact))
+//    })
+//
+//    let expandNames =  ExpandNames(isExpanded: true, expnadNames: favoriteContacts)
+//    self.twoDimensionalArray = [expandNames]
+    
+    
     func getData(){
+   
         let jsonURLString = "https://gojek-contacts-app.herokuapp.com/contacts.json"
         guard let url = URL(string: jsonURLString) else { return }
         URLSession.shared.dataTask(with: url) { (data, response, err) in
             guard let data = data else { return }
             do {
+                
                 self.arrayContact = try JSONDecoder().decode([contactData].self, from: data)
                
                 // creating a dictonary for indexing
                 for item in self.arrayContact {
                     let key = String(item.last_name.prefix(1)).uppercased()
                     if var contactValues = self.contactDictonary[key] {
-                        contactValues.append(item.first_name + " " + item.last_name)
+                    contactValues.append(item.first_name + " " + item.last_name)
+                       
                         self.contactDictonary[key] = contactValues
                     }else {
                         self.contactDictonary[key] = [item.first_name + " " + item.last_name] }
@@ -91,7 +107,9 @@ class HomeScreen: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
         let CDScreen = ContactDetailScreen()
+        
         navigationController?.pushViewController(CDScreen, animated: true)
     }
     

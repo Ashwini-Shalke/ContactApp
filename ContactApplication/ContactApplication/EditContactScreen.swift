@@ -9,19 +9,18 @@
 import Foundation
 import UIKit
 
-class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate {
-    
+class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("EditScreen")
         view.backgroundColor =  UIColor.white
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backToContactDetailScreen))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
             , target: self, action: #selector(addTapped))
         autolayout()
-        let tapGesture = UITapGestureRecognizer(target: self, action: Selector(("pickImage:")))
-        tapGesture.delegate = self
-        addImageButtonView.addGestureRecognizer(tapGesture)
+        
     }
+    
     
     @objc func addTapped(){
         //need to implement
@@ -50,23 +49,17 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         return placeholder
     }()
     
-    let addImageButtonView: UIImageView = {
-       let image = UIImage(named: "camera_button")
-       let addImage = UIImageView()
-        addImage.image = image
-        addImage.clipsToBounds = true
-        addImage.round()
-        let tapGestureReconginser = UITapGestureRecognizer(target: self, action: #selector(pickImage))
-        addImage.addGestureRecognizer(tapGestureReconginser)
-        addImage.isUserInteractionEnabled = true
-        addImage.translatesAutoresizingMaskIntoConstraints = false
-        
-        return addImage
+    let addImageButton: UIButton = {
+        let addButton = UIButton()
+        let image = UIImage(named: "camera_button") as UIImage?
+        addButton.setImage(image, for: .normal)        
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.addTarget(self, action: #selector(pickImage), for: .touchUpInside)
+        return addButton
     }()
     
     let firstNameContainer: UIView = {
         let firstNameView = UIView()
-        //phonenumberView.backgroundColor = UIColor.lightGray
         firstNameView.translatesAutoresizingMaskIntoConstraints = false
         return firstNameView
     }()
@@ -88,7 +81,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         firstNameText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         firstNameText.isUserInteractionEnabled = true
         firstNameText.translatesAutoresizingMaskIntoConstraints = false
-       // firstNameText.becomeFirstResponder()
+        // firstNameText.becomeFirstResponder()
         return firstNameText
     }()
     
@@ -192,18 +185,18 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         NSLayoutConstraint.activate([
             placeHolderImageView.topAnchor.constraint(equalTo: topViewContainer.topAnchor, constant: 19),
             placeHolderImageView.centerXAnchor.constraint(equalTo: topViewContainer.centerXAnchor),
-                        placeHolderImageView.bottomAnchor.constraint(equalTo: topViewContainer.bottomAnchor, constant: -18),
+            placeHolderImageView.bottomAnchor.constraint(equalTo: topViewContainer.bottomAnchor, constant: -18),
             placeHolderImageView.widthAnchor.constraint(equalToConstant: 160)
             ])
         
-        placeHolderImageView.addSubview(addImageButtonView)
-//        layout for addImageView
+        topViewContainer.addSubview(addImageButton)
+        //        layout for addImageView
         NSLayoutConstraint.activate([
-            addImageButtonView.topAnchor.constraint(equalTo: placeHolderImageView.topAnchor, constant: 109),
-            addImageButtonView.leftAnchor.constraint(equalTo: placeHolderImageView.leftAnchor, constant: 111),
-           // addImageView.rightAnchor.constraint(equalTo: placeHolderImageView.rightAnchor, constant: -22),
-            addImageButtonView.widthAnchor.constraint(equalToConstant: 41),
-            addImageButtonView.heightAnchor.constraint(equalToConstant: 41)])
+            addImageButton.topAnchor.constraint(equalTo: placeHolderImageView.topAnchor, constant: 109),
+            addImageButton.leftAnchor.constraint(equalTo: placeHolderImageView.leftAnchor, constant: 111),
+            // addImageView.rightAnchor.constraint(equalTo: placeHolderImageView.rightAnchor, constant: -22),
+            addImageButton.widthAnchor.constraint(equalToConstant: 41),
+            addImageButton.heightAnchor.constraint(equalToConstant: 41)])
         
         
         view.addSubview(firstNameContainer)
@@ -248,7 +241,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         NSLayoutConstraint.activate([
             lastNameLabel.topAnchor.constraint(equalTo: lastNameContainer.topAnchor, constant: 18),
             lastNameLabel.leftAnchor.constraint(equalTo: lastNameContainer.leftAnchor, constant: 22),
-           lastNameLabel.widthAnchor.constraint(equalToConstant: 77),
+            lastNameLabel.widthAnchor.constraint(equalToConstant: 77),
             lastNameLabel.heightAnchor.constraint(equalToConstant: 19)
             ])
         
@@ -314,16 +307,19 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             emailText.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 21),
             emailText.rightAnchor.constraint(equalTo: emailContainer.rightAnchor, constant: -10)
             ])
-        }
+    }
     
-    @objc func pickImage(sender: AnyObject) {
+    @objc func pickImage(sender: UIButton!) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         
         let actionsheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         actionsheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
-            imagePickerController.sourceType = .camera
-            self.present(imagePickerController,animated: true ,completion : nil)
+                if UIImagePickerController.isSourceTypeAvailable(.camera){
+                imagePickerController.sourceType = .camera
+                self.present(imagePickerController,animated: true, completion: nil)
+            }
+            print("Camera not available")
         }))
         
         actionsheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
@@ -331,14 +327,13 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             self.present(imagePickerController,animated: true, completion: nil)
         }))
         
-        actionsheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction) in
-            self.present(imagePickerController,animated: true, completion: nil)
-            
-        }))
-        
+        actionsheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(actionsheet,animated: true, completion: nil)
     }
     
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        //to get the real information of image which the user has picked
         let image = info[.originalImage] as! UIImage
         placeHolderImageView.image = image
         picker.dismiss(animated: true, completion: nil)
@@ -348,8 +343,5 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         picker.dismiss(animated: true, completion: nil)
     }
     
-    
-
-
-    
 }
+
