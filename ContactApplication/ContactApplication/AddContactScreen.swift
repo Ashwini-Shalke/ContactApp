@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class AddContactScreen: UIViewController{
+class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImagePickerControllerDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +19,7 @@ class AddContactScreen: UIViewController{
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
             , target: self, action: #selector(addTapped))
         navigationItem.leftBarButtonItem?.tintColor = UIColor.lightGreen
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
         autolayout()
     }
     
@@ -45,20 +46,20 @@ class AddContactScreen: UIViewController{
         let placeholder = UIImageView()
         placeholder.image = image
         placeholder.clipsToBounds = true
+        placeholder.frame = CGRect(x: 0, y: 0, width: 160, height: 0)
         placeholder.round()
         placeholder.translatesAutoresizingMaskIntoConstraints = false
         return placeholder
     }()
     
-    let addImageView: UIImageView = {
+    let addImageButton: UIButton = {
         let image = UIImage(named: "camera_button")
-        let addImage = UIImageView()
-      //  addImage.image = image
-        addImage.clipsToBounds = true
-        addImage.round()
-       // let tapGestureReconginser =  UITapGestureRecognizer(target: self, action: #selector(AddContactScreen.))
-        addImage.translatesAutoresizingMaskIntoConstraints = false
-        return addImage
+        let addButton = UIButton()
+        addButton.setImage(image, for: .normal)
+        addButton.clipsToBounds = true
+        addButton.addTarget(self, action: #selector(pickImage), for: .touchUpInside)
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        return addButton
     }()
     
     let firstNameContainer: UIView = {
@@ -170,11 +171,6 @@ class AddContactScreen: UIViewController{
         return email
     }()
     
-    
-    
-    
-    
-    
     func autolayout() {
         view.addSubview(topViewContainer)
         //        layout for topViewContainer
@@ -194,14 +190,14 @@ class AddContactScreen: UIViewController{
             placeHolderImageView.widthAnchor.constraint(equalToConstant: 160)
             ])
         
-        placeHolderImageView.addSubview(addImageView)
+        topViewContainer.addSubview(addImageButton)
         //        layout for addImageView
         NSLayoutConstraint.activate([
-            addImageView.topAnchor.constraint(equalTo: placeHolderImageView.topAnchor, constant: 109),
-            addImageView.leftAnchor.constraint(equalTo: placeHolderImageView.leftAnchor, constant: 111),
+            addImageButton.topAnchor.constraint(equalTo: placeHolderImageView.topAnchor, constant: 109),
+            addImageButton.leftAnchor.constraint(equalTo: placeHolderImageView.leftAnchor, constant: 111),
             // addImageView.rightAnchor.constraint(equalTo: placeHolderImageView.rightAnchor, constant: -22),
-            addImageView.widthAnchor.constraint(equalToConstant: 41),
-            addImageView.heightAnchor.constraint(equalToConstant: 41)])
+            addImageButton.widthAnchor.constraint(equalToConstant: 41),
+            addImageButton.heightAnchor.constraint(equalToConstant: 41)])
         
         
         view.addSubview(firstNameContainer)
@@ -316,6 +312,39 @@ class AddContactScreen: UIViewController{
         
     }
     
+    //need to reduce the line of code
+    @objc func pickImage() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        let actionsheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
+        actionsheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera){
+                imagePickerController.sourceType = .camera
+                self.present(imagePickerController,animated: true, completion: nil)
+            }
+            print("Camera not available")
+        }))
+        
+        actionsheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
+            imagePickerController.sourceType = .photoLibrary
+            self.present(imagePickerController,animated: true, completion: nil)
+        }))
+        
+        actionsheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(actionsheet,animated: true, completion: nil)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        //to get the real information of image which the user has picked
+        let image = info[.originalImage] as! UIImage
+        placeHolderImageView.image = image
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+   
     
 }
 

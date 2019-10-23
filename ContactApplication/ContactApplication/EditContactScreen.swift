@@ -312,10 +312,10 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             ])
     }
     
-    @objc func pickImage(sender: UIButton!) {
+    @objc func pickImage() {
+        print("Pick Image is working")
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
-        
         let actionsheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         actionsheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
                 if UIImagePickerController.isSourceTypeAvailable(.camera){
