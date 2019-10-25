@@ -12,14 +12,33 @@ import UIKit
 class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("EditScreen")
         view.backgroundColor =  UIColor.white
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backToContactDetailScreen))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
             , target: self, action: #selector(addTapped))
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         autolayout()
         
     }
+    
+    @objc func keyboardWillShow(notification: NSNotification){
+        guard let userinfo = notification.userInfo  else {return}
+        guard let keyboardSize = userinfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
+        let keyboardFrame = keyboardSize.cgRectValue
+        if self.view.frame.origin.y == 0 {
+            self.view.frame.origin.y -= keyboardFrame.height
+        }
+        
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification){
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    
     
     
     @objc func addTapped(){
@@ -151,8 +170,12 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         emailView.layer.borderWidth = 0.4
         emailView.layer.borderColor = UIColor.gray.cgColor
         emailView.translatesAutoresizingMaskIntoConstraints = false
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         return emailView
     }()
+    
+    
     
     let emailLabel: UILabel = {
         let email = UILabel()
@@ -181,7 +204,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             topViewContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
             topViewContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             topViewContainer.heightAnchor.constraint(equalToConstant: 185)
-            ])
+        ])
         
         topViewContainer.addSubview(placeHolderImageView)
         //        layout for profileViewContainer
@@ -190,7 +213,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             placeHolderImageView.centerXAnchor.constraint(equalTo: topViewContainer.centerXAnchor),
             placeHolderImageView.bottomAnchor.constraint(equalTo: topViewContainer.bottomAnchor, constant: -18),
             placeHolderImageView.widthAnchor.constraint(equalToConstant: 160)
-            ])
+        ])
         
         topViewContainer.addSubview(addImageButton)
         //        layout for addImageView
@@ -209,7 +232,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             firstNameContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
             firstNameContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
             firstNameContainer.heightAnchor.constraint(equalToConstant: 56)
-            ])
+        ])
         
         firstNameContainer.addSubview(firstNameLabel)
         //        layout for firstNameLabel
@@ -218,7 +241,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             firstNameLabel.leftAnchor.constraint(equalTo: firstNameContainer.leftAnchor, constant: 22),
             firstNameLabel.widthAnchor.constraint(equalToConstant: 77),
             firstNameLabel.heightAnchor.constraint(equalToConstant: 19)
-            ])
+        ])
         
         firstNameContainer.addSubview(firstNameText)
         //        layout for firstNameText
@@ -227,7 +250,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             firstNameText.heightAnchor.constraint(equalToConstant: 19),
             firstNameText.leftAnchor.constraint(equalTo: firstNameLabel.rightAnchor, constant: 21),
             firstNameText.rightAnchor.constraint(equalTo: firstNameContainer.rightAnchor, constant: -10)
-            ])
+        ])
         
         
         view.addSubview(lastNameContainer)
@@ -237,7 +260,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             lastNameContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
             lastNameContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
             lastNameContainer.heightAnchor.constraint(equalToConstant: 56)
-            ])
+        ])
         
         lastNameContainer.addSubview(lastNameLabel)
         //        layout for lastNameLabel
@@ -246,7 +269,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             lastNameLabel.leftAnchor.constraint(equalTo: lastNameContainer.leftAnchor, constant: 22),
             lastNameLabel.widthAnchor.constraint(equalToConstant: 77),
             lastNameLabel.heightAnchor.constraint(equalToConstant: 19)
-            ])
+        ])
         
         lastNameContainer.addSubview(lastNameText)
         //        layout for lastNameText
@@ -255,7 +278,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             lastNameText.heightAnchor.constraint(equalToConstant: 19),
             lastNameText.leftAnchor.constraint(equalTo: lastNameLabel.rightAnchor, constant: 21),
             lastNameText.rightAnchor.constraint(equalTo: lastNameContainer.rightAnchor, constant: -10)
-            ])
+        ])
         
         view.addSubview(mobileNumberContainer)
         //        layout for mobileNumberContainer
@@ -264,7 +287,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             mobileNumberContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
             mobileNumberContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
             mobileNumberContainer.heightAnchor.constraint(equalToConstant: 56)
-            ])
+        ])
         
         mobileNumberContainer.addSubview(mobileNumberLabel)
         //        layout for mobileNumberLabel
@@ -273,7 +296,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             mobileNumberLabel.leftAnchor.constraint(equalTo: mobileNumberContainer.leftAnchor, constant: 54),
             mobileNumberLabel.widthAnchor.constraint(equalToConstant: 44),
             mobileNumberLabel.heightAnchor.constraint(equalToConstant: 19)
-            ])
+        ])
         
         mobileNumberContainer.addSubview(mobileNumberText)
         //        layout for mobileNumberText
@@ -282,7 +305,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             mobileNumberText.heightAnchor.constraint(equalToConstant: 19),
             mobileNumberText.leftAnchor.constraint(equalTo: mobileNumberLabel.rightAnchor, constant: 21),
             mobileNumberText.rightAnchor.constraint(equalTo: mobileNumberContainer.rightAnchor, constant: -10)
-            ])
+        ])
         
         view.addSubview(emailContainer)
         //        layout for emailContainer
@@ -291,7 +314,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             emailContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
             emailContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
             emailContainer.heightAnchor.constraint(equalToConstant: 56)
-            ])
+        ])
         
         emailContainer.addSubview(emailLabel)
         //        layout for emailLabel
@@ -300,7 +323,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             emailLabel.leftAnchor.constraint(equalTo: emailContainer.leftAnchor, constant: 64),
             emailLabel.widthAnchor.constraint(equalToConstant: 38),
             emailLabel.heightAnchor.constraint(equalToConstant: 19)
-            ])
+        ])
         
         emailContainer.addSubview(emailText)
         //        layout for emailText
@@ -309,16 +332,15 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             emailText.heightAnchor.constraint(equalToConstant: 19),
             emailText.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 21),
             emailText.rightAnchor.constraint(equalTo: emailContainer.rightAnchor, constant: -10)
-            ])
+        ])
     }
     
     @objc func pickImage() {
-        print("Pick Image is working")
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         let actionsheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         actionsheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
-                if UIImagePickerController.isSourceTypeAvailable(.camera){
+            if UIImagePickerController.isSourceTypeAvailable(.camera){
                 imagePickerController.sourceType = .camera
                 self.present(imagePickerController,animated: true, completion: nil)
             }
