@@ -10,14 +10,16 @@ import Foundation
 import UIKit
 
 class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor =  UIColor.white
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backToContactDetailScreen))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
             , target: self, action: #selector(addTapped))
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         autolayout()
         
     }
@@ -26,15 +28,16 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         guard let userinfo = notification.userInfo  else {return}
         guard let keyboardSize = userinfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
         let keyboardFrame = keyboardSize.cgRectValue
-        if self.view.frame.origin.y == 0 {
-            self.view.frame.origin.y -= keyboardFrame.height
+        
+        if self.scrollView.frame.origin.y == 0 {
+            self.scrollView.frame.origin.y -= keyboardFrame.height
         }
         
     }
     
     @objc func keyboardWillHide(notification: NSNotification){
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
+        if self.scrollView.frame.origin.y != 0 {
+            self.scrollView.frame.origin.y = 0
         }
     }
     
@@ -78,6 +81,16 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.addTarget(self, action: #selector(pickImage), for: .touchUpInside)
         return addButton
+    }()
+    
+    
+    let scrollView: UIScrollView = {
+        let scView = UIScrollView()
+        scView.translatesAutoresizingMaskIntoConstraints = false
+        scView.backgroundColor = UIColor.gradientBlue
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        return scView
     }()
     
     let firstNameContainer: UIView = {
@@ -224,8 +237,15 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             addImageButton.widthAnchor.constraint(equalToConstant: 41),
             addImageButton.heightAnchor.constraint(equalToConstant: 41)])
         
+        view.addSubview(scrollView)
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: topViewContainer.bottomAnchor),
+            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            
+                ])
         
-        view.addSubview(firstNameContainer)
+        scrollView.addSubview(firstNameContainer)
         //        layout for firstNameContainer
         NSLayoutConstraint.activate([
             firstNameContainer.topAnchor.constraint(equalTo: topViewContainer.bottomAnchor),
@@ -253,7 +273,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         ])
         
         
-        view.addSubview(lastNameContainer)
+        scrollView.addSubview(lastNameContainer)
         //        layout for lastNameContainer
         NSLayoutConstraint.activate([
             lastNameContainer.topAnchor.constraint(equalTo: firstNameContainer.bottomAnchor),
@@ -280,7 +300,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             lastNameText.rightAnchor.constraint(equalTo: lastNameContainer.rightAnchor, constant: -10)
         ])
         
-        view.addSubview(mobileNumberContainer)
+        scrollView.addSubview(mobileNumberContainer)
         //        layout for mobileNumberContainer
         NSLayoutConstraint.activate([
             mobileNumberContainer.topAnchor.constraint(equalTo: lastNameContainer.bottomAnchor),
@@ -307,7 +327,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             mobileNumberText.rightAnchor.constraint(equalTo: mobileNumberContainer.rightAnchor, constant: -10)
         ])
         
-        view.addSubview(emailContainer)
+        scrollView.addSubview(emailContainer)
         //        layout for emailContainer
         NSLayoutConstraint.activate([
             emailContainer.topAnchor.constraint(equalTo: mobileNumberContainer.bottomAnchor),
