@@ -9,31 +9,10 @@
 import Foundation
 import UIKit
 
-class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextFieldDelegate{
-   
+class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextFieldDelegate {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor =  UIColor.white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backToContactDetailScreen))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
-            , target: self, action: #selector(addTapped))
-        autolayout()
-        hideKeyboard()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        
-    }
-    
-    
-    @objc func addTapped(){
-        //need to implement
-    }
-    
-    @objc func backToContactDetailScreen(){
-        let CDScreen = ContactDetailScreen()
-        navigationController?.pushViewController(CDScreen, animated: false)
-    }
+    var activeTextField = UITextField()
+    var parentView = UIView()
     
     let topViewContainer : UIView = {
         let topView = UIView()
@@ -66,15 +45,6 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
     }()
     
     
-    let scrollView: UIScrollView = {
-        let scView = UIScrollView()
-        scView.translatesAutoresizingMaskIntoConstraints = false
-        scView.isScrollEnabled = true
-        scView.isUserInteractionEnabled = true
-        scView.backgroundColor = UIColor.gradientBlue
-        scView.backgroundColor = UIColor.green
-        return scView
-    }()
     
     let firstNameContainer: UIView = {
         let firstNameView = UIView()
@@ -99,6 +69,8 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         firstNameText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         firstNameText.isUserInteractionEnabled = true
         firstNameText.translatesAutoresizingMaskIntoConstraints = false
+        
+        
         // firstNameText.becomeFirstResponder()
         return firstNameText
     }()
@@ -219,15 +191,11 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             addImageButton.widthAnchor.constraint(equalToConstant: 41),
             addImageButton.heightAnchor.constraint(equalToConstant: 41)])
         
-        view.addSubview(scrollView)
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: topViewContainer.bottomAnchor),
-            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 88)
-            ])
         
-        scrollView.addSubview(firstNameContainer)
+        
+        
+        
+        view.addSubview(firstNameContainer)
         //        layout for firstNameContainer
         NSLayoutConstraint.activate([
             firstNameContainer.topAnchor.constraint(equalTo: topViewContainer.bottomAnchor),
@@ -255,7 +223,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         ])
         
         
-        scrollView.addSubview(lastNameContainer)
+        view.addSubview(lastNameContainer)
         //        layout for lastNameContainer
         NSLayoutConstraint.activate([
             lastNameContainer.topAnchor.constraint(equalTo: firstNameContainer.bottomAnchor),
@@ -282,7 +250,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             lastNameText.rightAnchor.constraint(equalTo: lastNameContainer.rightAnchor, constant: -10)
         ])
         
-        scrollView.addSubview(mobileNumberContainer)
+        view.addSubview(mobileNumberContainer)
         //        layout for mobileNumberContainer
         NSLayoutConstraint.activate([
             mobileNumberContainer.topAnchor.constraint(equalTo: lastNameContainer.bottomAnchor),
@@ -309,7 +277,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             mobileNumberText.rightAnchor.constraint(equalTo: mobileNumberContainer.rightAnchor, constant: -10)
         ])
         
-        scrollView.addSubview(emailContainer)
+        view.addSubview(emailContainer)
         //        layout for emailContainer
         NSLayoutConstraint.activate([
             emailContainer.topAnchor.constraint(equalTo: mobileNumberContainer.bottomAnchor),
@@ -336,6 +304,35 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             emailText.rightAnchor.constraint(equalTo: emailContainer.rightAnchor, constant: -10)
         ])
     }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor =  UIColor.white
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backToContactDetailScreen))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
+            , target: self, action: #selector(addTapped))
+        autolayout()
+        hideKeyboard()
+        firstNameText.delegate = self
+        lastNameText.delegate = self
+        mobileNumberText.delegate = self
+        emailText.delegate = self
+        activeTextField.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+    }
+    
+    @objc func addTapped(){
+        //need to implement
+    }
+    
+    @objc func backToContactDetailScreen(){
+        let CDScreen = ContactDetailScreen()
+        navigationController?.pushViewController(CDScreen, animated: false)
+    }
+    
     
     @objc func pickImage() {
         let imagePickerController = UIImagePickerController()
@@ -377,30 +374,59 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         view.addGestureRecognizer(tap)
     }
     
-   @objc func dismissKeyboard(){
+    @objc func dismissKeyboard(){
         view.endEditing(true)
     }
     
-    @objc func keyboard(notification: NSNotification){
-          guard let userInfo = notification.userInfo else { return }
-        guard let keyboardScreenEndFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey]  as? NSValue)?.cgRectValue else { return }
-          
-        let keyboardEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
-
-        if notification.name == UIResponder.keyboardWillHideNotification {
-            scrollView.contentInset = UIEdgeInsets.zero
-        } else {
-            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardEndFrame.height, right: 0)
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextField = textField
+        parentView = activeTextField.superview!
+        print(activeTextField)
+        
+        
+    }
+    
+    
+    @objc func keyboardWillShow(notification : NSNotification){
+        guard let userInfo = notification.userInfo else {return}
+        guard let keyboardsize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else {return}
+        let keyboardframe = keyboardsize.cgRectValue
+        let keyboardYaxis = self.view.frame.size.height - keyboardframe.height
+        print("keyboardYaxis", keyboardYaxis)
+        
+        let editTextFieldY:CGFloat = parentView.frame.origin.y
+        print("editTextFieldY", editTextFieldY)
+        
+        
+        
+        if (self.view.frame.origin.y >= 0) {
+            if editTextFieldY > keyboardYaxis - 60 {
+                UIView.animate(withDuration: 0.25, delay: 0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                    self.view.frame = CGRect(x: 0, y: self.view.frame.origin.y - (editTextFieldY - (keyboardYaxis - 60)), width: self.view.bounds.width, height: self.view.bounds.height)
+                }, completion: nil)
+            }
         }
-        scrollView.scrollIndicatorInsets = scrollView.contentInset
-      }
-      
-     
+    }
+    
+    @objc func keyboardWillHide(notification : NSNotification){
+        UIView.animate(withDuration: 0.25, delay: 0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+            self.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+        }, completion: nil)
+        
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-       }
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     
 }
+
 
