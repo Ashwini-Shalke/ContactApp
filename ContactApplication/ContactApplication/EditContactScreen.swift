@@ -14,6 +14,25 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
     var activeTextField = UITextField()
     var parentView = UIView()
     
+    override func viewDidLoad() {
+           super.viewDidLoad()
+           view.backgroundColor =  UIColor.white
+           navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backToContactDetailScreen))
+           navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
+               , target: self, action: #selector(addTapped))
+           autolayout()
+           hideKeyboard()
+           firstNameText.delegate = self
+           lastNameText.delegate = self
+           mobileNumberText.delegate = self
+           emailText.delegate = self
+           activeTextField.delegate = self
+           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+           
+       }
+    
+    
     let topViewContainer : UIView = {
         let topView = UIView()
         topView.translatesAutoresizingMaskIntoConstraints = false
@@ -306,23 +325,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
     }
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor =  UIColor.white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backToContactDetailScreen))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
-            , target: self, action: #selector(addTapped))
-        autolayout()
-        hideKeyboard()
-        firstNameText.delegate = self
-        lastNameText.delegate = self
-        mobileNumberText.delegate = self
-        emailText.delegate = self
-        activeTextField.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-    }
+   
     
     @objc func addTapped(){
         //need to implement
@@ -381,6 +384,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField
+        activeTextField.autocorrectionType = .no
         parentView = activeTextField.superview!
         print(activeTextField)
         
@@ -392,6 +396,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         guard let userInfo = notification.userInfo else {return}
         guard let keyboardsize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else {return}
         let keyboardframe = keyboardsize.cgRectValue
+        
         let keyboardYaxis = self.view.frame.size.height - keyboardframe.height
         print("keyboardYaxis", keyboardYaxis)
         
@@ -402,9 +407,12 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         
         if (self.view.frame.origin.y >= 0) {
             if editTextFieldY > keyboardYaxis - 60 {
-                UIView.animate(withDuration: 0.25, delay: 0, options: UIView.AnimationOptions.curveEaseIn, animations: {
-                    self.view.frame = CGRect(x: 0, y: self.view.frame.origin.y - (editTextFieldY - (keyboardYaxis - 60)), width: self.view.bounds.width, height: self.view.bounds.height)
+                print(self.view.frame.origin.y)
+                UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                    self.view.frame = CGRect(x: 0, y: self.view.frame.origin.y - (editTextFieldY - (keyboardYaxis - 80)), width: self.view.bounds.width, height: self.view.bounds.height)
                 }, completion: nil)
+                
+                print("after", self.view.frame.origin.y)
             }
         }
     }

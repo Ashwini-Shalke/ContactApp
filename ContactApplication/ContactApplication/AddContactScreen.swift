@@ -9,30 +9,24 @@
 import Foundation
 import UIKit
 
-class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImagePickerControllerDelegate{
+class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate {
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor =  UIColor.white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backToContactDetailScreen))
-        navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
-            , target: self, action: #selector(addTapped))
-        navigationItem.leftBarButtonItem?.tintColor = UIColor.lightGreen
-        navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
-        autolayout()
-    }
-    
-    @objc func addTapped(){
-        let homeScreen = HomeScreen()
-        navigationController?.pushViewController(homeScreen, animated: false)
-    }
-    
-    @objc func backToContactDetailScreen(){
-        let homeScreen = HomeScreen()
-        navigationController?.pushViewController(homeScreen, animated: false)
-    }
-    
+             super.viewDidLoad()
+             view.backgroundColor =  UIColor.white
+             navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backToContactDetailScreen))
+             navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
+             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
+                 , target: self, action: #selector(addTapped))
+             navigationItem.leftBarButtonItem?.tintColor = UIColor.lightGreen
+             navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
+             autolayout()
+        firstNameText.delegate = self
+        
+             
+             
+         }
+   
     let topViewContainer : UIView = {
         let topView = UIView()
         topView.translatesAutoresizingMaskIntoConstraints = false
@@ -86,6 +80,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
         firstNameText.isUserInteractionEnabled = true
         //firstNameText
         firstNameText.translatesAutoresizingMaskIntoConstraints = false
+        
         return firstNameText
     }()
     
@@ -309,8 +304,18 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             emailText.rightAnchor.constraint(equalTo: emailContainer.rightAnchor, constant: -10)
             ])
         
-        
     }
+    
+       @objc func addTapped(){
+           let homeScreen = HomeScreen()
+           navigationController?.pushViewController(homeScreen, animated: false)
+       }
+       
+       @objc func backToContactDetailScreen(){
+           let homeScreen = HomeScreen()
+           navigationController?.pushViewController(homeScreen, animated: false)
+       }
+       
     
     //need to reduce the line of code
     @objc func pickImage() {
