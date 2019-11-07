@@ -11,22 +11,84 @@ import UIKit
 
 class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate {
     
+    var activeTextField = UITextField()
+    var parentView = UIView()
+    
     override func viewDidLoad() {
-             super.viewDidLoad()
-             view.backgroundColor =  UIColor.white
-             navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backToContactDetailScreen))
-             navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
-             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
-                 , target: self, action: #selector(addTapped))
-             navigationItem.leftBarButtonItem?.tintColor = UIColor.lightGreen
-             navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
-             autolayout()
+        super.viewDidLoad()
+        view.backgroundColor =  UIColor.white
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backToContactDetailScreen))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
+            , target: self, action: #selector(addTapped))
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.lightGreen
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
+        autolayout()
         firstNameText.delegate = self
+        lastNameText.delegate = self
+        mobileNumberText.delegate = self
+        emailText.delegate = self
+        hideKeyboard()
+        //adding observer for keyboard notifictaion
         
-             
-             
-         }
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification: )), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification: )), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    
+    // tap gesture to hide keyboard
+    func hideKeyboard(){
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+
+    @objc func dismissKeyboard(){
+        view.endEditing(true)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.autocorrectionType = .no
+        activeTextField = textField
+        parentView = activeTextField.superview!
+    }
+    
+    
+    @objc func keyboardWillShow(notification : NSNotification ) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else { return }
+        let keybardFrame = keyboardSize.cgRectValue
+        let keyboardYaxis = self.view.frame.size.height - keybardFrame.height
+        let editTextFieldY: CGFloat = parentView.frame.origin.y
+       
+        if self.view.frame.origin.y >= 0 {
+            if editTextFieldY > keyboardYaxis - 60 {
+                UIView.animate(withDuration: 0.25, delay: 0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                    self.view.frame = CGRect(x: 0, y: self.view.frame.origin.y - (editTextFieldY - (keyboardYaxis - 80)), width: self.view.bounds.width, height: self.view.bounds.height)
+                }, completion: nil)
+            }
+        }
+    }
    
+    
+    @objc func keyboardWillHide(notification : NSNotification){
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+            self.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+        }, completion: nil)
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     let topViewContainer : UIView = {
         let topView = UIView()
         topView.translatesAutoresizingMaskIntoConstraints = false

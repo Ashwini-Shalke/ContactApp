@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MessageUI
 
 struct Fonts {
     static let SFUITextBold = "SFUIText-Bold"
@@ -26,6 +27,8 @@ class ContactDetailScreen: UIViewController{
         navigationController?.navigationBar.shadowImage = UIImage()
         autolayout()
     }
+    
+    
     
     @objc func pushToEditContactScreen(){
         let editContactScreen = EditContactScreen()
@@ -69,6 +72,7 @@ class ContactDetailScreen: UIViewController{
         let messageImage = UIImage(named: "message_button") as UIImage?
         let msgBtn = UIButton.init(type: .custom)
         msgBtn.setImage(messageImage, for: .normal)
+        msgBtn.addTarget(self, action: #selector(messageOnButtonTap), for: .touchUpInside)
         return msgBtn
     }()
     
@@ -85,6 +89,7 @@ class ContactDetailScreen: UIViewController{
         let callImage = UIImage(named:"call_button") as UIImage?
         let callBtn = UIButton(type: .custom)
         callBtn.setImage(callImage, for: .normal)
+        callBtn.addTarget(self, action: #selector(callOnButtonTap), for: .touchUpInside)
         return callBtn
     }()
     
@@ -101,6 +106,7 @@ class ContactDetailScreen: UIViewController{
         let emailImage = UIImage(named:"email_button") as UIImage?
         let emailBtn = UIButton(type: .custom)
         emailBtn.setImage(emailImage, for: .normal)
+        emailBtn.addTarget(self, action: #selector(emailOnButtonTap), for: .touchUpInside)
         return emailBtn
     }()
     
@@ -320,9 +326,50 @@ class ContactDetailScreen: UIViewController{
     }
     
     
+    @objc func callOnButtonTap(){
+        print("This need to be ran on device")
+        if let url = URL(string:"tel://\(String(describing: phonenumberText.text))"){
+            if UIApplication.shared.canOpenURL(url){
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+    }
     
-  
+    @objc func messageOnButtonTap(){
+        print("this need to be ran on device")
+    }
     
+    @objc func emailOnButtonTap(){
+        // this need to be ran on device
+        guard MFMailComposeViewController.canSendMail() else { return }
+        let composer = MFMailComposeViewController()
+        composer.mailComposeDelegate = self
+        composer.setToRecipients([(emailText.text)!])
+        present(composer,animated: true)
+    }
+    
+}
+
+extension ContactDetailScreen : MFMailComposeViewControllerDelegate {
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+         if let _ = error
+         {
+            controller.dismiss(animated: true, completion: nil)
+        }
+        
+        switch result {
+        case .cancelled:
+            print("Cancelled")
+        case .failed:
+            print("Failed")
+        case .saved:
+            print("Saved")
+        case .sent:
+            print("Sent")
+       }
+        controller.dismiss(animated: true, completion: nil)
+    }
 }
 
 

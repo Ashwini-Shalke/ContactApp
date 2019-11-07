@@ -37,7 +37,6 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         let topView = UIView()
         topView.translatesAutoresizingMaskIntoConstraints = false
         topView.backgroundColor = UIColor.customBlue
-        //topView.setBackgroundGradientColor(colorOne: UIColor.lightGreen, colorTwo: UIColor.white)
         return topView
     }()
     
@@ -88,15 +87,11 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         firstNameText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         firstNameText.isUserInteractionEnabled = true
         firstNameText.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        // firstNameText.becomeFirstResponder()
         return firstNameText
     }()
     
     let lastNameContainer: UIView = {
         let lastNameView = UIView()
-        //phonenumberView.backgroundColor = UIColor.lightGray
         lastNameView.layer.borderWidth = 0.4
         lastNameView.layer.borderColor = UIColor.gray.cgColor
         lastNameView.translatesAutoresizingMaskIntoConstraints = false
@@ -396,26 +391,19 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         guard let userInfo = notification.userInfo else {return}
         guard let keyboardsize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else {return}
         let keyboardframe = keyboardsize.cgRectValue
-        
         let keyboardYaxis = self.view.frame.size.height - keyboardframe.height
-        print("keyboardYaxis", keyboardYaxis)
-        
         let editTextFieldY:CGFloat = parentView.frame.origin.y
-        print("editTextFieldY", editTextFieldY)
-        
-        
-        
+    
         if (self.view.frame.origin.y >= 0) {
             if editTextFieldY > keyboardYaxis - 60 {
                 print(self.view.frame.origin.y)
                 UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
                     self.view.frame = CGRect(x: 0, y: self.view.frame.origin.y - (editTextFieldY - (keyboardYaxis - 80)), width: self.view.bounds.width, height: self.view.bounds.height)
                 }, completion: nil)
-                
-                print("after", self.view.frame.origin.y)
             }
         }
     }
+    
     
     @objc func keyboardWillHide(notification : NSNotification){
         UIView.animate(withDuration: 0.25, delay: 0, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -423,6 +411,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         }, completion: nil)
         
     }
+    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
