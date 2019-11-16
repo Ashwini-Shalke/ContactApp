@@ -13,6 +13,11 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
     
     var activeTextField = UITextField()
     var parentView = UIView()
+    var firstName = String()
+    var lastName = String()
+    var mobileNumber = String()
+    var email = String()
+    
     
     override func viewDidLoad() {
            super.viewDidLoad()
@@ -22,16 +27,24 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
                , target: self, action: #selector(addTapped))
            autolayout()
            hideKeyboard()
-           firstNameText.delegate = self
-           lastNameText.delegate = self
-           mobileNumberText.delegate = self
-           emailText.delegate = self
-           activeTextField.delegate = self
+           loadData()
            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+         print("EditContactScreen", firstName)
            
        }
     
+    func loadData() {
+        firstNameText.delegate = self
+        lastNameText.delegate = self
+        mobileNumberText.delegate = self
+        emailText.delegate = self
+        activeTextField.delegate = self
+        firstNameText.text = firstName
+        lastNameText.text = lastName
+        mobileNumberText.text = mobileNumber
+        emailText.text = email
+    }
     
     let topViewContainer : UIView = {
         let topView = UIView()
@@ -82,8 +95,6 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
     
     let firstNameText: UITextField = {
         let firstNameText = UITextField ()
-        // phoneText.backgroundColor = UIColor.green
-        firstNameText.text = "Ashwini"
         firstNameText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         firstNameText.isUserInteractionEnabled = true
         firstNameText.translatesAutoresizingMaskIntoConstraints = false
@@ -111,7 +122,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
     let lastNameText: UITextField = {
         let lastNameText = UITextField ()
         // phoneText.backgroundColor = UIColor.green
-        lastNameText.text = "Shalke"
+//        lastNameText.text = "Shalke"
         lastNameText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         lastNameText.isUserInteractionEnabled = true
         lastNameText.translatesAutoresizingMaskIntoConstraints = false
@@ -138,9 +149,9 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
     let mobileNumberText: UITextField = {
         let mobileText = UITextField ()
         // phoneText.backgroundColor = UIColor.green
-        mobileText.text = "919075721798919075721798919075721798919075721798919075721798"
+//        mobileText.text = "919075721798919075721798919075721798919075721798919075721798"
         mobileText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
-        mobileText.textAlignment = .right
+        mobileText.textAlignment = .left
         mobileText.isUserInteractionEnabled = true
         mobileText.keyboardType = .numberPad
         mobileText.translatesAutoresizingMaskIntoConstraints = false
@@ -151,7 +162,6 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         let emailView = UIView()
         emailView.layer.borderWidth = 0.4
         emailView.layer.borderColor = UIColor.gray.cgColor
-        
         emailView.translatesAutoresizingMaskIntoConstraints = false
         return emailView
     }()
@@ -170,7 +180,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
     
     let emailText: UITextField = {
         let email = UITextField ()
-        email.text = "ashwinishalke050@gmail.comashwinishalke050@gmail.comashwinishalke050@gmail.com"
+//        email.text = "ashwinishalke050@gmail.comashwinishalke050@gmail.comashwinishalke050@gmail.com"
         email.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         email.isUserInteractionEnabled = true
         email.translatesAutoresizingMaskIntoConstraints = false
@@ -204,9 +214,6 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
             // addImageView.rightAnchor.constraint(equalTo: placeHolderImageView.rightAnchor, constant: -22),
             addImageButton.widthAnchor.constraint(equalToConstant: 41),
             addImageButton.heightAnchor.constraint(equalToConstant: 41)])
-        
-        
-        
         
         
         view.addSubview(firstNameContainer)
@@ -328,6 +335,8 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
     
     @objc func backToContactDetailScreen(){
         let CDScreen = ContactDetailScreen()
+        CDScreen.phonenumberText.text = mobileNumber
+        CDScreen.emailText.text = email
         navigationController?.pushViewController(CDScreen, animated: false)
     }
     
@@ -381,9 +390,6 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
         activeTextField = textField
         activeTextField.autocorrectionType = .no
         parentView = activeTextField.superview!
-        print(activeTextField)
-        
-        
     }
     
     

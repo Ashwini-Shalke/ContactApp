@@ -7,18 +7,16 @@
 //
 
 import UIKit
-
 class HomeScreen: UITableViewController{
-   
     let cellID = "cell"
     var arrayContact = [contactData]()
     let item = [String]()
-    var contactDictonary = [String: [String]]()
+    var contactDictonary = [String: [contactData]]()
     var contactSectionTitle = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: cellID)
         self.navigationItem.title = "Contact"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action:#selector(moveToAddContactScreen))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
@@ -33,41 +31,26 @@ class HomeScreen: UITableViewController{
     }
     
     @objc func addTapped(){
-        
     }
-    
-//    var favoriteContacts = [FavoriteContact]()
-//    try store.enumerateContacts(with: request, usingBlock: { (contact,stopPointerIfYouwantToStopEnumeration) in
-//    print(contact.givenName)
-//    print(contact.familyName)
-//    print(contact.phoneNumbers.first?.value.stringValue ?? " ")
-//    // favoriteContacts.append(FavoriteContact(IsFav: false, names: contact.givenName + " " + contact.familyName))
-//    favoriteContacts.append(FavoriteContact(isFav : false, favContactsName : contact))
-//    })
-//
-//    let expandNames =  ExpandNames(isExpanded: true, expnadNames: favoriteContacts)
-//    self.twoDimensionalArray = [expandNames]
     
     
     func getData(){
-   
         let jsonURLString = "https://gojek-contacts-app.herokuapp.com/contacts.json"
         guard let url = URL(string: jsonURLString) else { return }
         URLSession.shared.dataTask(with: url) { (data, response, err) in
             guard let data = data else { return }
             do {
-                
                 self.arrayContact = try JSONDecoder().decode([contactData].self, from: data)
-               
                 // creating a dictonary for indexing
+            
                 for item in self.arrayContact {
                     let key = String(item.last_name.prefix(1)).uppercased()
                     if var contactValues = self.contactDictonary[key] {
-                    contactValues.append(item.first_name + " " + item.last_name)
-                       
+                        contactValues.append(item)
                         self.contactDictonary[key] = contactValues
-                    }else {
-                        self.contactDictonary[key] = [item.first_name + " " + item.last_name] }
+                    } else {
+                        self.contactDictonary[key] = [item]
+                    }
                 }
                 self.contactSectionTitle = [String](self.contactDictonary.keys)
                 self.contactSectionTitle = self.contactSectionTitle.sorted(by : {$0 < $1 })
@@ -75,7 +58,7 @@ class HomeScreen: UITableViewController{
             } catch let jsonErr{
                 print("Unable to fetch Data",jsonErr)
             }
-            }.resume()
+        }.resume()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -87,7 +70,7 @@ class HomeScreen: UITableViewController{
     }
     
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-       return self.contactSectionTitle
+        return self.contactSectionTitle
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -102,20 +85,30 @@ class HomeScreen: UITableViewController{
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         let key = contactSectionTitle[indexPath.section]
         if let contactName = contactDictonary[key] {
-            cell.textLabel?.text = contactName[indexPath.row] }
+            let contactInfo = contactName[indexPath.row]
+            cell.textLabel?.text = contactInfo.first_name + " " + contactInfo.last_name
+        }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
         let CDScreen = ContactDetailScreen()
-        
+        let key = contactSectionTitle[indexPath.section]
+        if let contactName = contactDictonary[key] {
+            let contactInfo  = contactName[indexPath.row]
+            CDScreen.contactId = contactInfo.id
+        }
         navigationController?.pushViewController(CDScreen, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
     }
-
+    
+    func favStar() {
+        print("hello")
+        
+    }
+    
 }
 

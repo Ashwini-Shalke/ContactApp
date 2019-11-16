@@ -29,8 +29,8 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
         mobileNumberText.delegate = self
         emailText.delegate = self
         hideKeyboard()
-        //adding observer for keyboard notifictaion
         
+        //adding observer for keyboard notifictaion
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification: )), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification: )), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -43,7 +43,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
         view.addGestureRecognizer(tapGesture)
     }
     
-
+    
     @objc func dismissKeyboard(){
         view.endEditing(true)
     }
@@ -61,7 +61,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
         let keybardFrame = keyboardSize.cgRectValue
         let keyboardYaxis = self.view.frame.size.height - keybardFrame.height
         let editTextFieldY: CGFloat = parentView.frame.origin.y
-       
+        
         if self.view.frame.origin.y >= 0 {
             if editTextFieldY > keyboardYaxis - 60 {
                 UIView.animate(withDuration: 0.25, delay: 0, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -70,7 +70,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             }
         }
     }
-   
+    
     
     @objc func keyboardWillHide(notification : NSNotification){
         UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -120,7 +120,6 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
     
     let firstNameContainer: UIView = {
         let firstNameView = UIView()
-        //phonenumberView.backgroundColor = UIColor.lightGray
         firstNameView.translatesAutoresizingMaskIntoConstraints = false
         return firstNameView
     }()
@@ -137,7 +136,6 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
     
     let firstNameText: UITextField = {
         let firstNameText = UITextField ()
-        // phoneText.backgroundColor = UIColor.green
         firstNameText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         firstNameText.isUserInteractionEnabled = true
         //firstNameText
@@ -148,7 +146,6 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
     
     let lastNameContainer: UIView = {
         let lastNameView = UIView()
-        //phonenumberView.backgroundColor = UIColor.lightGray
         lastNameView.layer.borderWidth = 0.4
         lastNameView.layer.borderColor = UIColor.gray.cgColor
         lastNameView.translatesAutoresizingMaskIntoConstraints = false
@@ -167,7 +164,6 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
     
     let lastNameText: UITextField = {
         let lastNameText = UITextField ()
-        // phoneText.backgroundColor = UIColor.green
         lastNameText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         lastNameText.isUserInteractionEnabled = true
         lastNameText.translatesAutoresizingMaskIntoConstraints = false
@@ -176,7 +172,6 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
     
     let mobileNumberContainer: UIView = {
         let mobileView = UIView()
-        //phonenumberView.backgroundColor = UIColor.lightGray
         mobileView.translatesAutoresizingMaskIntoConstraints = false
         return mobileView
     }()
@@ -193,7 +188,6 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
     
     let mobileNumberText: UITextField = {
         let mobileText = UITextField ()
-        // phoneText.backgroundColor = UIColor.green
         mobileText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         mobileText.textAlignment = .right
         mobileText.isUserInteractionEnabled = true
@@ -236,7 +230,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             topViewContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
             topViewContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             topViewContainer.heightAnchor.constraint(equalToConstant: 185)
-            ])
+        ])
         
         topViewContainer.addSubview(placeHolderImageView)
         //        layout for profileViewContainer
@@ -245,7 +239,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             placeHolderImageView.centerXAnchor.constraint(equalTo: topViewContainer.centerXAnchor),
             placeHolderImageView.bottomAnchor.constraint(equalTo: topViewContainer.bottomAnchor, constant: -18),
             placeHolderImageView.widthAnchor.constraint(equalToConstant: 160)
-            ])
+        ])
         
         topViewContainer.addSubview(addImageButton)
         //        layout for addImageView
@@ -264,7 +258,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             firstNameContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
             firstNameContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
             firstNameContainer.heightAnchor.constraint(equalToConstant: 56)
-            ])
+        ])
         
         firstNameContainer.addSubview(firstNameLabel)
         //        layout for firstNameLabel
@@ -273,7 +267,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             firstNameLabel.leftAnchor.constraint(equalTo: firstNameContainer.leftAnchor, constant: 22),
             firstNameLabel.widthAnchor.constraint(equalToConstant: 77),
             firstNameLabel.heightAnchor.constraint(equalToConstant: 19)
-            ])
+        ])
         
         firstNameContainer.addSubview(firstNameText)
         //        layout for firstNameText
@@ -282,7 +276,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             firstNameText.heightAnchor.constraint(equalToConstant: 19),
             firstNameText.leftAnchor.constraint(equalTo: firstNameLabel.rightAnchor, constant: 21),
             firstNameText.rightAnchor.constraint(equalTo: firstNameContainer.rightAnchor, constant: -10)
-            ])
+        ])
         
         
         view.addSubview(lastNameContainer)
@@ -292,7 +286,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             lastNameContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
             lastNameContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
             lastNameContainer.heightAnchor.constraint(equalToConstant: 56)
-            ])
+        ])
         
         lastNameContainer.addSubview(lastNameLabel)
         //        layout for lastNameLabel
@@ -301,7 +295,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             lastNameLabel.leftAnchor.constraint(equalTo: lastNameContainer.leftAnchor, constant: 22),
             lastNameLabel.widthAnchor.constraint(equalToConstant: 77),
             lastNameLabel.heightAnchor.constraint(equalToConstant: 19)
-            ])
+        ])
         
         lastNameContainer.addSubview(lastNameText)
         //        layout for lastNameText
@@ -310,7 +304,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             lastNameText.heightAnchor.constraint(equalToConstant: 19),
             lastNameText.leftAnchor.constraint(equalTo: lastNameLabel.rightAnchor, constant: 21),
             lastNameText.rightAnchor.constraint(equalTo: lastNameContainer.rightAnchor, constant: -10)
-            ])
+        ])
         
         view.addSubview(mobileNumberContainer)
         //        layout for mobileNumberContainer
@@ -319,7 +313,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             mobileNumberContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
             mobileNumberContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
             mobileNumberContainer.heightAnchor.constraint(equalToConstant: 56)
-            ])
+        ])
         
         mobileNumberContainer.addSubview(mobileNumberLabel)
         //        layout for mobileNumberLabel
@@ -328,7 +322,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             mobileNumberLabel.leftAnchor.constraint(equalTo: mobileNumberContainer.leftAnchor, constant: 54),
             mobileNumberLabel.widthAnchor.constraint(equalToConstant: 44),
             mobileNumberLabel.heightAnchor.constraint(equalToConstant: 19)
-            ])
+        ])
         
         mobileNumberContainer.addSubview(mobileNumberText)
         //        layout for mobileNumberText
@@ -337,7 +331,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             mobileNumberText.heightAnchor.constraint(equalToConstant: 19),
             mobileNumberText.leftAnchor.constraint(equalTo: mobileNumberLabel.rightAnchor, constant: 21),
             mobileNumberText.rightAnchor.constraint(equalTo: mobileNumberContainer.rightAnchor, constant: -10)
-            ])
+        ])
         
         view.addSubview(emailContainer)
         //        layout for emailContainer
@@ -346,7 +340,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             emailContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
             emailContainer.rightAnchor.constraint(equalTo: view.rightAnchor),
             emailContainer.heightAnchor.constraint(equalToConstant: 56)
-            ])
+        ])
         
         emailContainer.addSubview(emailLabel)
         //        layout for emailLabel
@@ -355,7 +349,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             emailLabel.leftAnchor.constraint(equalTo: emailContainer.leftAnchor, constant: 64),
             emailLabel.widthAnchor.constraint(equalToConstant: 38),
             emailLabel.heightAnchor.constraint(equalToConstant: 19)
-            ])
+        ])
         
         emailContainer.addSubview(emailText)
         //        layout for emailText
@@ -364,20 +358,20 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             emailText.heightAnchor.constraint(equalToConstant: 19),
             emailText.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 21),
             emailText.rightAnchor.constraint(equalTo: emailContainer.rightAnchor, constant: -10)
-            ])
+        ])
         
     }
     
-       @objc func addTapped(){
-           let homeScreen = HomeScreen()
-           navigationController?.pushViewController(homeScreen, animated: false)
-       }
-       
-       @objc func backToContactDetailScreen(){
-           let homeScreen = HomeScreen()
-           navigationController?.pushViewController(homeScreen, animated: false)
-       }
-       
+    @objc func addTapped(){
+        let homeScreen = HomeScreen()
+        navigationController?.pushViewController(homeScreen, animated: false)
+    }
+    
+    @objc func backToContactDetailScreen(){
+        let homeScreen = HomeScreen()
+        navigationController?.pushViewController(homeScreen, animated: false)
+    }
+    
     
     //need to reduce the line of code
     @objc func pickImage() {
@@ -400,6 +394,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
         actionsheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(actionsheet,animated: true, completion: nil)
     }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         //to get the real information of image which the user has picked
         let image = info[.originalImage] as! UIImage
@@ -411,7 +406,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
         picker.dismiss(animated: true, completion: nil)
     }
     
-   
+    
     
 }
 

@@ -17,4 +17,14 @@ struct contactData:Decodable {
     let id:Int
 }
 
-
+struct contactDetail:Decodable {
+    let id:Int
+    let first_name:String
+    let last_name:String
+    let email:String
+    let phone_number:String
+    let profile_pic:String
+    let favorite:Bool
+    let created_at:String
+    let updated_at:String
+}

@@ -20,7 +20,15 @@ class TableViewCell : UITableViewCell {
         starButton.setImage(UIImage(imageLiteralResourceName: "home_favourite"), for: .normal)
         starButton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         accessoryView = starButton
-        starButton.tintColor = UIColor.customBlue
+        starButton.addTarget(self, action: #selector(linkToHomeScreen), for: .touchUpInside)
+        
+    }
+    
+    
+    @objc func linkToHomeScreen() {
+       // link!.favStar()
+    
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

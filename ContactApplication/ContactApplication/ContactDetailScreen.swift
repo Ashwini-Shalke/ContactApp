@@ -17,6 +17,15 @@ struct Fonts {
 }
 
 class ContactDetailScreen: UIViewController{
+    var contactId: Int?
+    var firstName = String()
+    var lastName = String()
+    var phonenumber = String()
+    var email = String()
+    
+   // let detailContact = contactDetail.self
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
@@ -25,13 +34,41 @@ class ContactDetailScreen: UIViewController{
         navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Contact", style: .plain, target: self, action: #selector(backToHomeScreen))
         navigationController?.navigationBar.shadowImage = UIImage()
+        getContactDataById()
         autolayout()
     }
-    
+
+    func getContactDataById(){
+        guard let conatctId = contactId else {return}
+        let id = String(describing: conatctId)
+        let getdataurl = "http://gojek-contacts-app.herokuapp.com/contacts/\(id).json"
+        guard let url = URL(string: getdataurl) else { return }
+        URLSession.shared.dataTask(with: url) { (data, response, err) in
+            guard let data = data else { return }
+            do {
+                let detailContact = try JSONDecoder().decode(contactDetail.self, from: data)
+                self.phonenumber = detailContact.phone_number
+                DispatchQueue.main.async {
+                    self.phonenumberText.text = detailContact.phone_number
+                    self.emailText.text = detailContact.email
+                    self.firstName = detailContact.first_name
+                    self.lastName = detailContact.last_name
+                    self.phonenumber = detailContact.phone_number
+                    self.email = detailContact.email
+                }
+                self.email = detailContact.email
+            } catch let err {
+                print("Error",err)l            }
+        }.resume()
+    }
     
     
     @objc func pushToEditContactScreen(){
         let editContactScreen = EditContactScreen()
+        editContactScreen.firstName = firstName
+        editContactScreen.lastName = lastName
+        editContactScreen.mobileNumber = phonenumber
+        editContactScreen.email = email
         navigationController?.pushViewController(editContactScreen, animated: false)
     }
     
@@ -155,15 +192,12 @@ class ContactDetailScreen: UIViewController{
     let phonenumberText: UITextField = {
         let phoneText = UITextField ()
         // phoneText.backgroundColor = UIColor.green
-        phoneText.text = "919075721798919075721798919075721798919075721798919075721798"
         phoneText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
+        phoneText.textAlignment = .left
         phoneText.isUserInteractionEnabled = false
         phoneText.translatesAutoresizingMaskIntoConstraints = false
         return phoneText
     }()
-    
-    
-    
     
     let emailContainer: UIView = {
         let emailView = UIView()
@@ -185,8 +219,8 @@ class ContactDetailScreen: UIViewController{
     
     let emailText: UITextField = {
         let email = UITextField ()
-        email.text = "ashwinishalke050@gmail.comashwinishalke050@gmail.comashwinishalke050@gmail.com"
         email.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
+        email.textAlignment = .left
         email.isUserInteractionEnabled = false
         email.translatesAutoresizingMaskIntoConstraints = false
         return email
@@ -356,7 +390,8 @@ extension ContactDetailScreen : MFMailComposeViewControllerDelegate {
          if let _ = error
          {
             controller.dismiss(animated: true, completion: nil)
-        }
+            return
+             }
         
         switch result {
         case .cancelled:

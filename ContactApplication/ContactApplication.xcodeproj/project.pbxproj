@@ -21,6 +21,7 @@
 		336A4CA72344440E00A25696 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336A4CA62344440E00A25696 /* Extensions.swift */; };
 		336AC99C234F14A600ADDF9D /* sf-ui-text-2-cufonfonts in Resources */ = {isa = PBXBuildFile; fileRef = 336AC99B234F14A600ADDF9D /* sf-ui-text-2-cufonfonts */; };
 		33A500782359C20600ED4684 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A500772359C20600ED4684 /* TableViewCell.swift */; };
+		33CD097B237D214D00B80B6E /* NetworkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CD097A237D214C00B80B6E /* NetworkURL.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		336A4CA62344440E00A25696 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		336AC99B234F14A600ADDF9D /* sf-ui-text-2-cufonfonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "sf-ui-text-2-cufonfonts"; sourceTree = "<group>"; };
 		33A500772359C20600ED4684 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		33CD097A237D214C00B80B6E /* NetworkURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkURL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				335013222337A62D00732D90 /* LaunchScreen.storyboard */,
 				335013252337A62D00732D90 /* Info.plist */,
 				3350131D2337A62900732D90 /* ContactApplication.xcdatamodeld */,
+				33CD097A237D214C00B80B6E /* NetworkURL.swift */,
 			);
 			path = ContactApplication;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				335013192337A62900732D90 /* HomeScreen.swift in Sources */,
 				3348EF7223516E9800A8AA54 /* AddContactScreen.swift in Sources */,
 				33A500782359C20600ED4684 /* TableViewCell.swift in Sources */,
+				33CD097B237D214D00B80B6E /* NetworkURL.swift in Sources */,
 				3350131F2337A62900732D90 /* ContactApplication.xcdatamodeld in Sources */,
 				335013172337A62900732D90 /* AppDelegate.swift in Sources */,
 				3348EF70234F288800A8AA54 /* EditContactScreen.swift in Sources */,
