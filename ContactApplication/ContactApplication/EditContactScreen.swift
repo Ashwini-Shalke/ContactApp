@@ -23,14 +23,12 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
            super.viewDidLoad()
            view.backgroundColor =  UIColor.white
            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backToContactDetailScreen))
-           navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
-               , target: self, action: #selector(addTapped))
+           navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(addTapped))
            autolayout()
            hideKeyboard()
            loadData()
            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-         print("EditContactScreen", firstName)
            
        }
     
@@ -121,8 +119,6 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
     
     let lastNameText: UITextField = {
         let lastNameText = UITextField ()
-        // phoneText.backgroundColor = UIColor.green
-//        lastNameText.text = "Shalke"
         lastNameText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         lastNameText.isUserInteractionEnabled = true
         lastNameText.translatesAutoresizingMaskIntoConstraints = false
@@ -131,7 +127,6 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
     
     let mobileNumberContainer: UIView = {
         let mobileView = UIView()
-        //phonenumberView.backgroundColor = UIColor.lightGray
         mobileView.translatesAutoresizingMaskIntoConstraints = false
         return mobileView
     }()
@@ -148,8 +143,6 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
     
     let mobileNumberText: UITextField = {
         let mobileText = UITextField ()
-        // phoneText.backgroundColor = UIColor.green
-//        mobileText.text = "919075721798919075721798919075721798919075721798919075721798"
         mobileText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         mobileText.textAlignment = .left
         mobileText.isUserInteractionEnabled = true
@@ -180,7 +173,6 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
     
     let emailText: UITextField = {
         let email = UITextField ()
-//        email.text = "ashwinishalke050@gmail.comashwinishalke050@gmail.comashwinishalke050@gmail.com"
         email.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
         email.isUserInteractionEnabled = true
         email.translatesAutoresizingMaskIntoConstraints = false
@@ -334,10 +326,7 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
     }
     
     @objc func backToContactDetailScreen(){
-        let CDScreen = ContactDetailScreen()
-        CDScreen.phonenumberText.text = mobileNumber
-        CDScreen.emailText.text = email
-        navigationController?.pushViewController(CDScreen, animated: false)
+        navigationController?.popViewController(animated: true)
     }
     
     

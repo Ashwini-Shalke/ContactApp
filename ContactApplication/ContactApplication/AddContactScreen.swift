@@ -368,8 +368,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
     }
     
     @objc func backToContactDetailScreen(){
-        let homeScreen = HomeScreen()
-        navigationController?.pushViewController(homeScreen, animated: false)
+        navigationController?.popViewController(animated: true)
     }
     
     

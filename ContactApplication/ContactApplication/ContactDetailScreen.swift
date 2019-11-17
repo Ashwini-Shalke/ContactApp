@@ -17,11 +17,13 @@ struct Fonts {
 }
 
 class ContactDetailScreen: UIViewController{
-    var contactId: Int?
+    var contactId :Int?
     var firstName = String()
     var lastName = String()
     var phonenumber = String()
     var email = String()
+    var image = UIImage()
+
     
    // let detailContact = contactDetail.self
     
@@ -39,7 +41,7 @@ class ContactDetailScreen: UIViewController{
     }
 
     func getContactDataById(){
-        guard let conatctId = contactId else {return}
+        guard let conatctId = contactId else {return }
         let id = String(describing: conatctId)
         let getdataurl = "http://gojek-contacts-app.herokuapp.com/contacts/\(id).json"
         guard let url = URL(string: getdataurl) else { return }
@@ -55,10 +57,13 @@ class ContactDetailScreen: UIViewController{
                     self.lastName = detailContact.last_name
                     self.phonenumber = detailContact.phone_number
                     self.email = detailContact.email
+                    if let image = getima
+                   
+                    self.placeHolderLabel.text = self.firstName + " " + self.lastName
                 }
-                self.email = detailContact.email
-            } catch let err {
-                print("Error",err)l            }
+            } catch let err{
+                print("Erro",err)
+            }
         }.resume()
     }
     
@@ -69,12 +74,11 @@ class ContactDetailScreen: UIViewController{
         editContactScreen.lastName = lastName
         editContactScreen.mobileNumber = phonenumber
         editContactScreen.email = email
-        navigationController?.pushViewController(editContactScreen, animated: false)
+        navigationController?.pushViewController(editContactScreen, animated: true)
     }
     
     @objc func backToHomeScreen(){
-        let homeScreen = HomeScreen()
-        navigationController?.pushViewController(homeScreen, animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     let topViewContainer : UIView = {
@@ -97,7 +101,7 @@ class ContactDetailScreen: UIViewController{
     
     let placeHolderLabel: UILabel = {
         let placeholder = UILabel()
-        placeholder.text = "Ashwini Shalke"
+       // placeholder.text = "Ashwini Shalke"
         placeholder.adjustsFontSizeToFitWidth = true
         placeholder.textAlignment = NSTextAlignment.left
         placeholder.translatesAutoresizingMaskIntoConstraints = false
