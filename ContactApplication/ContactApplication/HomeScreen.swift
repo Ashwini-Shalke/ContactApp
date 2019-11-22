@@ -33,6 +33,19 @@ class HomeScreen: UITableViewController{
     @objc func addTapped(){
     }
     
+    func someMethod(cell: UITableViewCell){
+        guard let indexPath = tableView.indexPath(for: cell) else {return}
+        let key = contactSectionTitle[indexPath.section]
+        if var contact = contactDictonary[key] {
+            let contactFav = contact[indexPath.row].favorite
+            //print(contactFav)
+            
+            contact[indexPath.row].favorite = !contactFav
+            //print(contact[indexPath.row].favorite)
+            tableView.reloadRows(at: [indexPath], with: .fade)
+        }
+        
+    }
     
     func getData(){
         let jsonURLString = "https://gojek-contacts-app.herokuapp.com/contacts.json"
@@ -82,11 +95,14 @@ class HomeScreen: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! TableViewCell
+        cell.link = self
         let key = contactSectionTitle[indexPath.section]
         if let contactName = contactDictonary[key] {
             let contactInfo = contactName[indexPath.row]
             cell.textLabel?.text = contactInfo.first_name + " " + contactInfo.last_name
+//            print("fav",contactInfo)
+            cell.accessoryView?.tintColor = contactInfo.favorite ? UIColor.customBlue: UIColor.gray
         }
         return cell
     }

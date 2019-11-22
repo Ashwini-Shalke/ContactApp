@@ -17,16 +17,17 @@ class TableViewCell : UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         let starButton = UIButton()
-        starButton.setImage(UIImage(imageLiteralResourceName: "home_favourite"), for: .normal)
+        starButton.setImage(UIImage(imageLiteralResourceName: "favourite_button"), for: .normal)
         starButton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         accessoryView = starButton
-        starButton.addTarget(self, action: #selector(linkToHomeScreen), for: .touchUpInside)
+        starButton.addTarget(self, action: #selector(handleFavStar), for: .touchUpInside)
         
     }
     
     
-    @objc func linkToHomeScreen() {
-       // link!.favStar()
+    @objc func handleFavStar() {
+        link?.someMethod(cell: self)
+        
     
         
     }

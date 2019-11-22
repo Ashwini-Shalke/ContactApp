@@ -57,7 +57,7 @@ class ContactDetailScreen: UIViewController{
                     self.lastName = detailContact.last_name
                     self.phonenumber = detailContact.phone_number
                     self.email = detailContact.email
-                    if let image = getima
+                   
                    
                     self.placeHolderLabel.text = self.firstName + " " + self.lastName
                 }

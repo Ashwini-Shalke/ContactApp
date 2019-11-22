@@ -13,11 +13,11 @@ struct contactData:Decodable {
     let first_name:String
     let  last_name:String
     let profile_pic:String
-    let favorite: Bool
+    var favorite: Bool
     let id:Int
 }
 
-struct contactDetail:Decodable {
+struct contactDetail:Codable {
     let id:Int
     let first_name:String
     let last_name:String
@@ -28,3 +28,5 @@ struct contactDetail:Decodable {
     let created_at:String
     let updated_at:String
 }
+
+

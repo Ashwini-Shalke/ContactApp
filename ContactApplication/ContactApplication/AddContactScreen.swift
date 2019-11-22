@@ -20,7 +20,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backToContactDetailScreen))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain
-            , target: self, action: #selector(addTapped))
+            , target: self, action: #selector(addContact))
         navigationItem.leftBarButtonItem?.tintColor = UIColor.lightGreen
         navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
         autolayout()
@@ -371,6 +371,47 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
         navigationController?.popViewController(animated: true)
     }
     
+    @objc func addContact(){
+        guard let first_name = firstNameText.text else {return}
+        guard let last_name = lastNameText.text else {return}
+        guard let email = emailText.text else {return}
+        guard let phone_number = mobileNumberText.text else {return}
+        let profile_pic = "/images/missing.png"
+        
+        navigationController?.popViewController(animated: true)
+        let urlString = "http://gojek-contacts-app.herokuapp.com/contacts.json"
+        guard let url = URL(string: urlString) else {return}
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let parameters = contactDetail(id: 123, first_name: first_name, last_name: last_name, email: email, phone_number: phone_number, profile_pic: profile_pic, favorite: false, created_at: "019-11-21T15:37:25.601Z", updated_at: "019-11-21T15:37:25.601Z")
+        
+        guard let uploadData = try? JSONEncoder().encode(parameters) else {return}
+        
+        URLSession.shared.uploadTask(with: request, from:uploadData ) { (data, response , err ) in
+            if let err = err {
+                print("Error: ", err )
+            }
+            
+            guard let response = response as? HTTPURLResponse,
+                (200...299).contains(response.statusCode) else {
+                    print("Server Error")
+                    return
+            }
+            
+            if let mimeType = response.mimeType,
+            mimeType == "application/json",
+            let data = data,
+                let dataString = String(data: data, encoding: .utf8) {
+                print("Got data: ", dataString)
+            }
+            
+        }.resume()
+        
+    }
+    
     
     //need to reduce the line of code
     @objc func pickImage() {
@@ -409,3 +450,24 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
     
 }
 
+extension Dictionary {
+    func percentEscaped() -> String {
+        return map { (key, value) in
+            let escapedKey = "\(key)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
+            let escapedValue = "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
+            return escapedKey + "=" + escapedValue
+        }
+        .joined(separator: "&")
+    }
+}
+
+extension CharacterSet {
+    static let urlQueryValueAllowed: CharacterSet = {
+        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
+        let subDelimitersToEncode = "!$&'()*+,;="
+
+        var allowed = CharacterSet.urlQueryAllowed
+        allowed.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
+        return allowed
+    }()
+}
