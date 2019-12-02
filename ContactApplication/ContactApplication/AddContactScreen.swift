@@ -189,7 +189,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
     let mobileNumberText: UITextField = {
         let mobileText = UITextField ()
         mobileText.font = UIFont(name: Fonts.SFUITextRegular, size: 16)
-        mobileText.textAlignment = .right
+        mobileText.textAlignment = .left
         mobileText.isUserInteractionEnabled = true
         mobileText.keyboardType = .numberPad
         mobileText.translatesAutoresizingMaskIntoConstraints = false
@@ -372,13 +372,13 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
     }
     
     @objc func addContact(){
-        guard let first_name = firstNameText.text else {return}
-        guard let last_name = lastNameText.text else {return}
-        guard let email = emailText.text else {return}
-        guard let phone_number = mobileNumberText.text else {return}
+        let first_name = firstNameText.text
+        let last_name = lastNameText.text
+        let email = emailText.text
+        let phone_number = mobileNumberText.text
         let profile_pic = "/images/missing.png"
+        print("Add Screen")
         
-        navigationController?.popViewController(animated: true)
         let urlString = "http://gojek-contacts-app.herokuapp.com/contacts.json"
         guard let url = URL(string: urlString) else {return}
         
@@ -386,7 +386,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let parameters = contactDetail(id: 123, first_name: first_name, last_name: last_name, email: email, phone_number: phone_number, profile_pic: profile_pic, favorite: false, created_at: "019-11-21T15:37:25.601Z", updated_at: "019-11-21T15:37:25.601Z")
+        let parameters = ["first_name" : first_name , "last_name" : last_name, "email" : email, "phone_number" : phone_number, "profile_pic" : profile_pic]
         
         guard let uploadData = try? JSONEncoder().encode(parameters) else {return}
         
@@ -409,6 +409,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             }
             
         }.resume()
+        navigationController?.popViewController(animated: true)
         
     }
     
@@ -450,24 +451,4 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
     
 }
 
-extension Dictionary {
-    func percentEscaped() -> String {
-        return map { (key, value) in
-            let escapedKey = "\(key)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
-            let escapedValue = "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
-            return escapedKey + "=" + escapedValue
-        }
-        .joined(separator: "&")
-    }
-}
 
-extension CharacterSet {
-    static let urlQueryValueAllowed: CharacterSet = {
-        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
-        let subDelimitersToEncode = "!$&'()*+,;="
-
-        var allowed = CharacterSet.urlQueryAllowed
-        allowed.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
-        return allowed
-    }()
-}

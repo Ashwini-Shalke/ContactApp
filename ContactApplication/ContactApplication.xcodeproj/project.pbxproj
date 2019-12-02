@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3348EF70234F288800A8AA54 /* EditContactScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3348EF6F234F288800A8AA54 /* EditContactScreen.swift */; };
+		3306F582238FA07300B63825 /* EditContactScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3306F581238FA07300B63825 /* EditContactScreen.swift */; };
 		3348EF7223516E9800A8AA54 /* AddContactScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3348EF7123516E9800A8AA54 /* AddContactScreen.swift */; };
 		3348EF762357787F00A8AA54 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3348EF752357787F00A8AA54 /* Model.swift */; };
 		335013172337A62900732D90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335013162337A62900732D90 /* AppDelegate.swift */; };
@@ -42,7 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3348EF6F234F288800A8AA54 /* EditContactScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactScreen.swift; sourceTree = "<group>"; };
+		3306F581238FA07300B63825 /* EditContactScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditContactScreen.swift; sourceTree = "<group>"; };
 		3348EF7123516E9800A8AA54 /* AddContactScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactScreen.swift; sourceTree = "<group>"; };
 		3348EF752357787F00A8AA54 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		335013132337A62900732D90 /* ContactApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,9 +115,9 @@
 				3348EF752357787F00A8AA54 /* Model.swift */,
 				33A500772359C20600ED4684 /* TableViewCell.swift */,
 				335013182337A62900732D90 /* HomeScreen.swift */,
-				335013472337A74D00732D90 /* ContactDetailScreen.swift */,
-				3348EF6F234F288800A8AA54 /* EditContactScreen.swift */,
 				3348EF7123516E9800A8AA54 /* AddContactScreen.swift */,
+				335013472337A74D00732D90 /* ContactDetailScreen.swift */,
+				3306F581238FA07300B63825 /* EditContactScreen.swift */,
 				336A4CA62344440E00A25696 /* Extensions.swift */,
 				3350131A2337A62900732D90 /* Main.storyboard */,
 				335013202337A62D00732D90 /* Assets.xcassets */,
@@ -277,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3306F582238FA07300B63825 /* EditContactScreen.swift in Sources */,
 				336A4CA72344440E00A25696 /* Extensions.swift in Sources */,
 				335013192337A62900732D90 /* HomeScreen.swift in Sources */,
 				3348EF7223516E9800A8AA54 /* AddContactScreen.swift in Sources */,
@@ -284,7 +285,6 @@
 				33CD097B237D214D00B80B6E /* NetworkURL.swift in Sources */,
 				3350131F2337A62900732D90 /* ContactApplication.xcdatamodeld in Sources */,
 				335013172337A62900732D90 /* AppDelegate.swift in Sources */,
-				3348EF70234F288800A8AA54 /* EditContactScreen.swift in Sources */,
 				335013482337A74D00732D90 /* ContactDetailScreen.swift in Sources */,
 				3348EF762357787F00A8AA54 /* Model.swift in Sources */,
 			);

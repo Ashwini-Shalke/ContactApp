@@ -26,7 +26,7 @@ class TableViewCell : UITableViewCell {
     
     
     @objc func handleFavStar() {
-        link?.someMethod(cell: self)
+        //link?.someMethod(cell: self)
         
     
         

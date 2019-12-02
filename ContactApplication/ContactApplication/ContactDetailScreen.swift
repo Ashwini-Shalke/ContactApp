@@ -20,14 +20,12 @@ class ContactDetailScreen: UIViewController{
     var contactId :Int?
     var firstName = String()
     var lastName = String()
-    var phonenumber = String()
+    var phoneNumber = String()
     var email = String()
-    var image = UIImage()
+    
+    
+    
 
-    
-   // let detailContact = contactDetail.self
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
@@ -41,28 +39,24 @@ class ContactDetailScreen: UIViewController{
     }
 
     func getContactDataById(){
-        guard let conatctId = contactId else {return }
-        let id = String(describing: conatctId)
+        guard let contactId = contactId else {return }
+        let id = String(describing: contactId)
+        print("COntactDetail")
         let getdataurl = "http://gojek-contacts-app.herokuapp.com/contacts/\(id).json"
         guard let url = URL(string: getdataurl) else { return }
         URLSession.shared.dataTask(with: url) { (data, response, err) in
             guard let data = data else { return }
             do {
                 let detailContact = try JSONDecoder().decode(contactDetail.self, from: data)
-                self.phonenumber = detailContact.phone_number
                 DispatchQueue.main.async {
                     self.phonenumberText.text = detailContact.phone_number
                     self.emailText.text = detailContact.email
                     self.firstName = detailContact.first_name
                     self.lastName = detailContact.last_name
-                    self.phonenumber = detailContact.phone_number
-                    self.email = detailContact.email
-                   
-                   
-                    self.placeHolderLabel.text = self.firstName + " " + self.lastName
+                    self.placeHolderLabel.text = detailContact.first_name + " " + detailContact.last_name
                 }
             } catch let err{
-                print("Erro",err)
+                print("Contact Detail Screen Error",err)
             }
         }.resume()
     }
@@ -70,10 +64,12 @@ class ContactDetailScreen: UIViewController{
     
     @objc func pushToEditContactScreen(){
         let editContactScreen = EditContactScreen()
-        editContactScreen.firstName = firstName
-        editContactScreen.lastName = lastName
-        editContactScreen.mobileNumber = phonenumber
-        editContactScreen.email = email
+        editContactScreen.contactId = contactId
+        editContactScreen.firstNameText.text = firstName
+        editContactScreen.lastNameText.text = lastName
+        editContactScreen.emailText.text = emailText.text
+        editContactScreen.mobileNumberText.text = phonenumberText.text
+        editContactScreen.contactId = contactId
         navigationController?.pushViewController(editContactScreen, animated: true)
     }
     

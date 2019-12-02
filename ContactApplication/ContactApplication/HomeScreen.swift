@@ -22,8 +22,15 @@ class HomeScreen: UITableViewController{
         navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGreen
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Groups", style: .plain, target: self, action: #selector(addTapped))
         navigationItem.leftBarButtonItem?.tintColor = UIColor.lightGreen
+        //getData()
+    }
+    
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         getData()
     }
+   
     
     @objc func moveToAddContactScreen() {
         let addContact = AddContactScreen()
@@ -33,19 +40,19 @@ class HomeScreen: UITableViewController{
     @objc func addTapped(){
     }
     
-    func someMethod(cell: UITableViewCell){
-        guard let indexPath = tableView.indexPath(for: cell) else {return}
-        let key = contactSectionTitle[indexPath.section]
-        if var contact = contactDictonary[key] {
-            let contactFav = contact[indexPath.row].favorite
-            //print(contactFav)
-            
-            contact[indexPath.row].favorite = !contactFav
-            //print(contact[indexPath.row].favorite)
-            tableView.reloadRows(at: [indexPath], with: .fade)
-        }
+//    func someMethod(cell: UITableViewCell){
+//        guard let indexPath = tableView.indexPath(for: cell) else {return}
+//        let key = contactSectionTitle[indexPath.section]
+//        if var contact = contactDictonary[key] {
+//            let contactFav = contact[indexPath.row].favorite
+//            //print(contactFav)
+//            
+//            contact[indexPath.row].favorite = !contactFav
+//            //print(contact[indexPath.row].favorite)
+//            tableView.reloadRows(at: [indexPath], with: .fade)
+//        }
         
-    }
+//    }
     
     func getData(){
         let jsonURLString = "https://gojek-contacts-app.herokuapp.com/contacts.json"
