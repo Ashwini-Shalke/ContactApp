@@ -55,14 +55,18 @@ class HomeScreen: UITableViewController{
 //    }
     
     func getData(){
+        //clear the dictonary before loading
+        contactDictonary.removeAll()
+         
+        //fetch data from JSON
         let jsonURLString = "https://gojek-contacts-app.herokuapp.com/contacts.json"
         guard let url = URL(string: jsonURLString) else { return }
         URLSession.shared.dataTask(with: url) { (data, response, err) in
             guard let data = data else { return }
             do {
                 self.arrayContact = try JSONDecoder().decode([contactData].self, from: data)
+                
                 // creating a dictonary for indexing
-            
                 for item in self.arrayContact {
                     let key = String(item.last_name.prefix(1)).uppercased()
                     if var contactValues = self.contactDictonary[key] {
@@ -107,10 +111,10 @@ class HomeScreen: UITableViewController{
         let key = contactSectionTitle[indexPath.section]
         if let contactName = contactDictonary[key] {
             let contactInfo = contactName[indexPath.row]
-            cell.textLabel?.text = contactInfo.first_name + " " + contactInfo.last_name
-//            print("fav",contactInfo)
+            cell.nameLabel.text = contactInfo.first_name + " " + contactInfo.last_name
             cell.accessoryView?.tintColor = contactInfo.favorite ? UIColor.customBlue: UIColor.gray
-        }
+            cell.profileImageView.image = UIImage(named: "placeholder_photo")
+        } 
         return cell
     }
     

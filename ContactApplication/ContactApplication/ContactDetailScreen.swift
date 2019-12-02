@@ -41,7 +41,6 @@ class ContactDetailScreen: UIViewController{
     func getContactDataById(){
         guard let contactId = contactId else {return }
         let id = String(describing: contactId)
-        print("COntactDetail")
         let getdataurl = "http://gojek-contacts-app.herokuapp.com/contacts/\(id).json"
         guard let url = URL(string: getdataurl) else { return }
         URLSession.shared.dataTask(with: url) { (data, response, err) in

@@ -31,18 +31,15 @@ class EditContactScreen: UIViewController, UINavigationControllerDelegate, UIIma
        }
     
     @objc func loadData() {
-        print("Edit Screen")
         guard let contactID = contactId else {return}
-        print(contactID)
         let id = String(describing: contactID)
-        print("LoadData")
-              
-        let putURL = "http://gojek-contacts-app.herokuapp.com/contacts/14009.json"
-        print("EditScreen ", id)
+        let putURL = "http://gojek-contacts-app.herokuapp.com/contacts/\(id).json"
         guard let url = URL(string: putURL) else {return}
+        
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
         let parameters = ["first_name" : firstNameText.text, "last_name" : lastNameText.text , "email" : emailText.text , "phone_number" : mobileNumberText.text]
         
         guard let uploadData = try? JSONEncoder().encode(parameters) else {return}

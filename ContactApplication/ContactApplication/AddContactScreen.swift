@@ -405,7 +405,6 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             mimeType == "application/json",
             let data = data,
                 let dataString = String(data: data, encoding: .utf8) {
-                print("Got data: ", dataString)
             }
             
         }.resume()
