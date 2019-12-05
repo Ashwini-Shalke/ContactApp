@@ -65,7 +65,7 @@ class HomeScreen: UITableViewController{
             guard let data = data else { return }
             do {
                 self.arrayContact = try JSONDecoder().decode([contactData].self, from: data)
-               
+                
                 // creating a dictonary for indexing
                 for item in self.arrayContact {
                     let key = String(item.last_name.prefix(1)).uppercased()
