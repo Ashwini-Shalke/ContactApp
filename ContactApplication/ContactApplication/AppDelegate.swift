@@ -20,8 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow()
         window?.makeKeyAndVisible()
-        let navController = UINavigationController(rootViewController: HomeScreen())
-        window?.rootViewController = navController
+        //let navController = UINavigationController(rootViewController: HomeScreen())
+        
+        window?.rootViewController = HomeContact()
         return true
     }
     

@@ -23,6 +23,7 @@ class TableViewCell : UITableViewCell {
         accessoryView = starButton
         starButton.addTarget(self, action: #selector(handleFavStar), for: .touchUpInside)
         autolayout()
+        
     
     }
 
@@ -56,7 +57,8 @@ class TableViewCell : UITableViewCell {
     }
     
     @objc func handleFavStar() {
-        //link?.someMethod(cell: self)
+        print("handleFavStar")
+        link?.someMethod(cell: self)
         
     
         

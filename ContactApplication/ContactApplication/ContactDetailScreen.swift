@@ -55,7 +55,7 @@ class ContactDetailScreen: UIViewController{
                     self.placeHolderLabel.text = detailContact.first_name + " " + detailContact.last_name
                 }
             } catch let err{
-                print("Contact Detail Screen Error",err)
+                //print("Contact Detail Screen Error",err)
             }
         }.resume()
     }

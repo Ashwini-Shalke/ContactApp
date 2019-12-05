@@ -40,19 +40,19 @@ class HomeScreen: UITableViewController{
     @objc func addTapped(){
     }
     
-//    func someMethod(cell: UITableViewCell){
-//        guard let indexPath = tableView.indexPath(for: cell) else {return}
-//        let key = contactSectionTitle[indexPath.section]
-//        if var contact = contactDictonary[key] {
-//            let contactFav = contact[indexPath.row].favorite
-//            //print(contactFav)
-//            
-//            contact[indexPath.row].favorite = !contactFav
-//            //print(contact[indexPath.row].favorite)
-//            tableView.reloadRows(at: [indexPath], with: .fade)
-//        }
+    func someMethod(cell: UITableViewCell){
+        guard let indexPath = tableView.indexPath(for: cell) else {return}
+        let key = contactSectionTitle[indexPath.section]
+        if var contact = contactDictonary[key] {
+         let contactFav = contact[indexPath.row].favorite
+//            print(contactFav)
+            
+            contact[indexPath.row].favorite = !contactFav
+            //print(contact[indexPath.row].favorite)
+            tableView.reloadRows(at: [indexPath], with: .fade)
+        }
         
-//    }
+    }
     
     func getData(){
         //clear the dictonary before loading
@@ -65,7 +65,7 @@ class HomeScreen: UITableViewController{
             guard let data = data else { return }
             do {
                 self.arrayContact = try JSONDecoder().decode([contactData].self, from: data)
-                
+               
                 // creating a dictonary for indexing
                 for item in self.arrayContact {
                     let key = String(item.last_name.prefix(1)).uppercased()
@@ -76,6 +76,9 @@ class HomeScreen: UITableViewController{
                         self.contactDictonary[key] = [item]
                     }
                 }
+                
+               
+                
                 self.contactSectionTitle = [String](self.contactDictonary.keys)
                 self.contactSectionTitle = self.contactSectionTitle.sorted(by : {$0 < $1 })
                 DispatchQueue.main.async { self.tableView.reloadData() }

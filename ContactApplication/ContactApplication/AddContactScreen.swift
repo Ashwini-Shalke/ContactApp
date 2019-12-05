@@ -13,6 +13,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
     
     var activeTextField = UITextField()
     var parentView = UIView()
+   // var imageStr : Data = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -376,7 +377,7 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
         let last_name = lastNameText.text
         let email = emailText.text
         let phone_number = mobileNumberText.text
-        let profile_pic = "/images/missing.png"
+        let profile_pic = "text"
         print("Add Screen")
         
         let urlString = "http://gojek-contacts-app.herokuapp.com/contacts.json"
@@ -404,12 +405,11 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
             if let mimeType = response.mimeType,
             mimeType == "application/json",
             let data = data,
-                let dataString = String(data: data, encoding: .utf8) {
+                let dataString = String(data: data, encoding: .utf8){
+                print(dataString)
             }
-            
         }.resume()
-        navigationController?.popViewController(animated: true)
-        
+         navigationController?.popViewController(animated: true)
     }
     
     
@@ -437,8 +437,12 @@ class AddContactScreen: UIViewController,UINavigationControllerDelegate,UIImageP
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         //to get the real information of image which the user has picked
-        let image = info[.originalImage] as! UIImage
-        placeHolderImageView.image = image
+        let imageData = info[.originalImage] as! UIImage
+        print(imageData)
+        let image_Data:Data = imageData.pngData()!
+        let imgstr = image_Data.base64EncodedData()
+        print(imgstr)
+        placeHolderImageView.image = imageData
         picker.dismiss(animated: true, completion: nil)
     }
     
